@@ -4,6 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>備份都ok 使用說明</title>
+<link rel="icon" type="image/png" sizes="64x64" href="../icons/favicon-64.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../icons/favicon-32.png">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
 <style>
 @font-face {
   font-family: "BKSerif";
@@ -56,6 +59,8 @@ a { color: inherit; }
 .top-l .ttl { color: var(--ink-2); }
 .top-r { color: var(--mute); font-size: 13px; letter-spacing: .06em; }
 .top a.home { text-decoration: none; color: inherit; }
+.brand { display: inline-flex; align-items: center; gap: 9px; text-decoration: none; color: inherit; }
+.brand img { width: 20px; height: 20px; display: block; }
 .top a.home:hover { color: var(--ink); }
 .progress { position: absolute; left: 0; bottom: -1px; height: 1px; width: 100%; background: var(--ink);
   transform-origin: 0 50%; transform: scaleX(0); }
@@ -229,7 +234,7 @@ td + td { color: var(--ink-2); }
 <script>document.documentElement.classList.add('js');</script>
 
 <header class="top">
-  <div class="top-l"><a class="home" href="../">備份都ok</a><span class="sep"></span><span class="ttl">使用說明</span></div>
+  <div class="top-l"><a class="home brand" href="../"><img src="../icons/favicon-64.png" alt="" width="20" height="20">備份都ok</a><span class="sep"></span><span class="ttl">使用說明</span></div>
   <div class="top-r"><a class="home" href="../">下載</a></div>
   <div class="progress" id="progress"></div>
 </header>
@@ -266,16 +271,16 @@ td + td { color: var(--ink-2); }
     <section id="install">
       <p class="no">第一章</p>
       <h2>安裝</h2>
-      <p class="lede">備份都ok 是一個獨立的 Mac 應用程式，放進「應用程式」資料夾就完成安裝，不會在系統裡留下其他東西。</p>
+      <p class="lede">備份都ok 是一個獨立的 Mac 應用程式，拖進「應用程式」資料夾就完成安裝，不會在系統裡留下其他東西。</p>
       <ol class="steps">
-        <li><span class="n">1</span><div><div class="h">打開下載的檔案</div><div class="d">壓縮檔（.zip）請雙擊解壓縮，會得到「備份都ok」；映像檔（.dmg）請雙擊打開。</div></div></li>
-        <li><span class="n">2</span><div><div class="h">拖進「應用程式」資料夾</div><div class="d">把「備份都ok」拖到 Finder 左側的「應用程式」。請不要直接在「下載項目」、壓縮檔或映像檔裡執行，權限容易出問題。</div></div></li>
-        <li><span class="n">3</span><div><div class="h">從「應用程式」打開</div><div class="d">第一次打開時 macOS 會先確認一次，請接著看下一章。</div></div></li>
+        <li><span class="n">1</span><div><div class="h">打開下載的映像檔</div><div class="d">從官方網站下載的檔名是 BackupOK 開頭、副檔名 .dmg，雙擊打開。</div></div></li>
+        <li><span class="n">2</span><div><div class="h">拖進「應用程式」資料夾</div><div class="d">把視窗裡的「備份都ok」拖到旁邊的「應用程式」捷徑上。請不要直接在映像檔裡執行，退出映像檔後 App 就會消失。</div></div></li>
+        <li><span class="n">3</span><div><div class="h">退出映像檔</div><div class="d">在 Finder 側邊欄按映像檔旁的退出鍵，下載的 .dmg 可以刪除。</div></div></li>
       </ol>
       <h3>系統需求</h3>
       <div class="tbl"><table>
         <tr><td>作業系統</td><td>macOS 13.5 以上</td></tr>
-        <tr><td>網路</td><td>啟用金鑰時需要；之後離線最多可使用 14 天</td></tr>
+        <tr><td>網路</td><td>啟用金鑰與檢查更新時需要；之後離線最多可使用 14 天</td></tr>
         <tr><td>讀卡</td><td>內建讀卡槽、外接讀卡機，或相機以 USB 直接連接皆可</td></tr>
       </table></div>
     </section>
@@ -284,29 +289,14 @@ td + td { color: var(--ink-2); }
     <section id="open">
       <p class="no">第二章</p>
       <h2>第一次打開</h2>
-      <p class="lede">macOS 會檢查從網路下載的 App。你看到的訊息取決於手上的版本，照對應的方式處理即可，只需要做一次。</p>
-      <h3>看到「確定要打開嗎？」</h3>
+      <p class="lede">備份都ok 已經通過 Apple 的公證。第一次打開時，macOS 只會跟你確認一次這是從網路下載的 App。</p>
+      <h3>你會看到的訊息</h3>
       <div class="dialog">
         <div class="cap">系統提示</div>
         <div class="msg">「備份都ok」是從網際網路下載的 App。你確定要打開嗎？</div>
       </div>
-      <p class="muted">這是通過 Apple 公證的版本，按「打開」即可，之後不會再出現。</p>
-
-      <h3>看到「無法檢查是否包含惡意軟體」</h3>
-      <div class="dialog">
-        <div class="cap">系統提示</div>
-        <div class="msg">無法打開「備份都ok」，因為 Apple 無法檢查其是否包含惡意軟體。</div>
-      </div>
-      <p class="muted">測試版尚未經過 Apple 公證，macOS 無法替你確認來源，並不代表程式有問題。也可能顯示「無法驗證開發者」，處理方式相同：先按「完成」或「取消」關掉，<b>不要</b>按「丟到垃圾桶」，再照下面放行。</p>
-      <ol class="steps">
-        <li><span class="n">1</span><div><div class="h">打開系統設定</div><div class="d">蘋果選單 › 系統設定 › 隱私權與安全性</div></div></li>
-        <li><span class="n">2</span><div><div class="h">往下捲到「安全性」區塊</div><div class="d">會看到「已阻擋『備份都ok』以保護你的 Mac」，旁邊有「仍要打開」按鈕。</div></div></li>
-        <li><span class="n">3</span><div><div class="h">按「仍要打開」並驗證身分</div><div class="d">輸入 Mac 登入密碼或使用 Touch ID。回到「應用程式」再打開一次，這時選「打開」，之後就不會再出現。</div></div></li>
-      </ol>
-      <div class="note"><div class="h">找不到「仍要打開」按鈕</div>這個按鈕只會在你剛嘗試打開之後的一段時間內出現。請先雙擊 App 讓它被擋一次，再立刻回到隱私權與安全性頁面。</div>
-      <div class="note"><div class="h">顯示「已損毀，應該丟到垃圾桶」</div>這是下載時被加上的隔離標記造成的，檔案本身沒有壞。打開「終端機」，貼上下面這行後按 return：
-        <div class="cmd"><code id="xattrCmd">xattr -dr com.apple.quarantine /Applications/備份都ok.app</code><button class="ghost" id="xattrCopy" type="button"><span class="swap-t">複製</span></button></div>
-        執行後沒有任何回應就是成功，再從「應用程式」打開即可。</div>
+      <p class="muted">按「打開」即可，之後不會再出現。</p>
+      <div class="note"><div class="h">如果看到「無法驗證」或「惡意軟體」的訊息</div>代表你手上是 2.2 以前的測試版。請把舊版丟到垃圾桶，從官方網站重新下載安裝；設定、預設集與歷史紀錄都會保留，打開後重新輸入一次金鑰即可。</div>
     </section>
 
     <!-- 03 -->
@@ -499,20 +489,6 @@ td + td { color: var(--ink-2); }
   }, { passive: true });
   window.addEventListener('resize', function () { current = -1; onScroll(); });
   onScroll();
-
-  // ---- 複製指令 ----
-  var cb = document.getElementById('xattrCopy');
-  if (cb) cb.addEventListener('click', function () {
-    var t = cb.querySelector('.swap-t');
-    var txt = document.getElementById('xattrCmd').textContent;
-    var done = function (ok) {
-      var next = ok ? '已複製' : '請手動選取';
-      if (reduce) { t.textContent = next; } else { t.classList.add('out'); setTimeout(function () { t.textContent = next; t.classList.remove('out'); }, 280); }
-      setTimeout(function () { t.textContent = '複製'; }, 1800);
-    };
-    if (navigator.clipboard) navigator.clipboard.writeText(txt).then(function () { done(true); }, function () { done(false); });
-    else done(false);
-  });
 
   // ---- 常見問題:展開 / 收合 ----
   document.querySelectorAll('.qa button').forEach(function (b) {
