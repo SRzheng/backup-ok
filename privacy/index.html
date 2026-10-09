@@ -10,7 +10,7 @@
 <style>
 @font-face {
   font-family: "BKSerif";
-  src: url(../fonts/serif-light-v2.woff2) format("woff2");
+  src: url(../fonts/serif-light-v3.woff2) format("woff2");
   font-weight: 300; font-style: normal; font-display: swap;
 }
 :root {
@@ -147,13 +147,28 @@ footer a:hover { color: var(--ink); }
 }
 </style>
 <style>
-.doc { padding: clamp(72px, 12vh, 132px) 0 40px; }
-.doc h1 { font-size: clamp(40px, 6vw, 60px); line-height: 1.15; letter-spacing: -.01em; margin: 0 0 18px; }
-.doc .date { font-size: 13.5px; color: var(--mute); letter-spacing: .06em; margin: 0 0 40px; }
-.doc h3 { font-size: 18px; letter-spacing: .04em; margin: 44px 0 14px; padding-bottom: 10px; border-bottom: 1px solid var(--line-strong); }
-.doc ul { margin: 0 0 14px; padding-left: 1.2em; color: var(--ink-2); }
-.doc li { margin-bottom: 6px; }
-.todo { border-bottom: 1px dashed var(--ai); color: var(--ai); }
+/* ---------- 區塊版(與後台同一套) ---------- */
+:root { --block: #FBFBF9; --line: rgba(29,29,27,.15); --line-strong: rgba(29,29,27,.32); --mute: #8E8E86; }
+body { font-size: 15px; line-height: 1.75; }
+.top { height: 50px; border-bottom: 1px solid var(--line-strong); padding: 0 20px; background: rgba(244,244,241,.82); }
+.wrap { max-width: 900px; padding: 16px 20px 0; display: flex; flex-direction: column; gap: 14px; }
+.block { background: var(--block); border: 1px solid var(--line-strong); border-radius: 12px; overflow: hidden; }
+.block-h { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 9px 18px;
+  border-bottom: 1px solid var(--line-strong); background: rgba(29,29,27,.025); }
+.block-h h2 { margin: 0; font-size: 15px; line-height: 1.5; letter-spacing: .06em; }
+.block-h .meta { font-size: 12px; color: var(--mute); letter-spacing: .06em; }
+.block-b { padding: 18px 22px 22px; }
+.doc { padding: 0; }
+.doc h1 { font-size: clamp(28px, 4vw, 40px); line-height: 1.2; letter-spacing: -.01em; margin: 0 0 12px; }
+.doc .lede { font-size: 15px; line-height: 1.8; margin: 0 0 6px; }
+.doc h3 { font-size: 14px; letter-spacing: .06em; color: var(--ink-2); margin: 20px 0 6px; padding-bottom: 5px; border-bottom: 1px solid var(--line-strong); }
+.doc ul { margin: 0 0 8px; padding-left: 1.2em; color: var(--ink-2); font-size: 14px; }
+.doc li { margin-bottom: 4px; }
+.doc p.muted { font-size: 14px; margin: 0 0 6px; }
+.btn { background: var(--ink); color: var(--paper); border: 0; font-size: 15px; padding: 9px 26px; margin-top: 10px; }
+.btn:hover { background: #2C2C29; }
+footer { border-top: 0; padding: 6px 2px 40px; font-size: 12.5px; }
+@media (max-width: 520px) { .wrap { padding: 12px 12px 0; } .block-b { padding: 16px 16px 18px; } }
 </style>
 </head>
 <body>
@@ -162,10 +177,10 @@ footer a:hover { color: var(--ink); }
   <nav><a href="../manual/">使用說明</a><a href="../privacy/">隱私權政策</a></nav>
 </header>
 <main class="wrap">
-  <article class="doc">
-    <p class="no">隱私權政策</p>
+  <article class="doc block">
+    <div class="block-h"><h2>隱私權政策</h2><span class="meta">最後更新：2026 年 10 月 9 日</span></div>
+    <div class="block-b">
     <h1>你的照片只留在你的 Mac</h1>
-    <p class="date">最後更新：2026 年 10 月 9 日</p>
     <p class="lede">備份都ok 在你的 Mac 上讀取記憶卡、寫入備份，這些檔案從來不會離開你的電腦。只有在領取金鑰、啟用授權與檢查更新時，會和我們的伺服器交換下面列出的最少資料。</p>
 
     <h3>領取測試金鑰時</h3>
@@ -202,6 +217,7 @@ footer a:hover { color: var(--ink); }
 
     <h3>聯絡我們</h3>
     <p class="muted">查詢或刪除你的資料，請來信 <a href="mailto:imokahhhh@gmail.com">imokahhhh@gmail.com</a>，並附上你領取金鑰時使用的信箱。</p>
+    </div>
   </article>
 
   <footer>
