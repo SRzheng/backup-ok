@@ -5,7 +5,7 @@
         <item>
             <title>2.3</title>
             <pubDate>Fri, 09 Oct 2026 15:16:32 +0800</pubDate>
-            <link>https://srzheng.github.io/backup-ok</link>
+            <link>https://felix5zheng.github.io/backup-ok</link>
             <sparkle:version>23</sparkle:version>
             <sparkle:shortVersionString>2.3</sparkle:shortVersionString>
             <sparkle:minimumSystemVersion>13.5</sparkle:minimumSystemVersion>
@@ -15,12 +15,12 @@
   <li>App 在背景時有新版本,會改用系統通知提醒,點通知就能查看更新內容並安裝;不會再突然跳出視窗打斷工作。</li>
 </ul>
 ]]></description>
-            <enclosure url="https://srzheng.github.io/backup-ok/downloads/BackupOK-2.3.dmg" length="2074600" type="application/octet-stream" sparkle:edSignature="PRYhCvE140rQNI8V8c/teSS6Xp8p3isuEDRshMkzSj3YWHNiTbVO5ywQJajzPBuyrBdR8QWvlU3wSYDC7cjFAA=="/>
+            <enclosure url="https://felix5zheng.github.io/backup-ok/downloads/BackupOK-2.3.dmg" length="2074600" type="application/octet-stream" sparkle:edSignature="PRYhCvE140rQNI8V8c/teSS6Xp8p3isuEDRshMkzSj3YWHNiTbVO5ywQJajzPBuyrBdR8QWvlU3wSYDC7cjFAA=="/>
         </item>
         <item>
             <title>2.2</title>
             <pubDate>Fri, 09 Oct 2026 14:00:23 +0800</pubDate>
-            <link>https://srzheng.github.io/backup-ok</link>
+            <link>https://felix5zheng.github.io/backup-ok</link>
             <sparkle:version>22</sparkle:version>
             <sparkle:shortVersionString>2.2</sparkle:shortVersionString>
             <sparkle:minimumSystemVersion>13.5</sparkle:minimumSystemVersion>
@@ -35,7 +35,7 @@
 </ul>
 <p>從 2.1 以前的版本更新時,需要重新輸入一次金鑰;設定、預設集與歷史紀錄會自動保留。</p>
 ]]></description>
-            <enclosure url="https://srzheng.github.io/backup-ok/downloads/BackupOK-2.2.dmg" length="2071065" type="application/octet-stream" sparkle:edSignature="6PrWtlta10lb/3Uka9EFJ8PBpjmUQYo+n/Lj977cjzBZjRviSVTyycDaSQFtiFIP0ZMyjf6N63A/JL+ZsopcBQ=="/>
+            <enclosure url="https://felix5zheng.github.io/backup-ok/downloads/BackupOK-2.2.dmg" length="2071065" type="application/octet-stream" sparkle:edSignature="6PrWtlta10lb/3Uka9EFJ8PBpjmUQYo+n/Lj977cjzBZjRviSVTyycDaSQFtiFIP0ZMyjf6N63A/JL+ZsopcBQ=="/>
         </item>
     </channel>
 </rss>
