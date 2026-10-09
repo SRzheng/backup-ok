@@ -8,11 +8,6 @@
 <link rel="icon" type="image/png" sizes="32x32" href="../icons/favicon-32.png">
 <link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
 <style>
-@font-face {
-  font-family: "BKSerif";
-  src: url(../fonts/serif-light-v3.woff2) format("woff2");
-  font-weight: 300; font-style: normal; font-display: swap;
-}
 :root {
   --paper: #F4F4F1;
   --ink: #1D1D1B;
@@ -21,7 +16,7 @@
   --line: rgba(29,29,27,.10);
   --line-strong: rgba(29,29,27,.24);
   --ai: #44617B;
-  --font: "BKSerif", "Noto Serif TC", "Songti TC", "PMingLiU", serif;
+  --font: -apple-system, BlinkMacSystemFont, "PingFang TC", "Noto Sans TC", "Microsoft JhengHei", sans-serif;
   --ease-out: cubic-bezier(.22, 1, .36, 1);
   --ease-spring: cubic-bezier(.34, 1.4, .64, 1);
   --rail-w: 188px;
@@ -33,12 +28,12 @@
 html { scroll-behavior: smooth; scroll-padding-top: calc(var(--top-h) + 28px + env(safe-area-inset-top, 0px)); }
 body {
   margin: 0; background: var(--paper); color: var(--ink);
-  font-family: var(--font); font-weight: 300; font-size: 16.5px; line-height: 1.95;
+  font-family: var(--font); font-weight: 400; font-size: 16.5px; line-height: 1.95;
   letter-spacing: .02em;
   -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
   font-variant-numeric: tabular-nums;
 }
-h1, h2, h3, b, strong, th { font-weight: 300; }
+h1, h2, h3, b, strong, th { font-weight: 600; }
 ::selection { background: rgba(68,97,123,.18); }
 a { color: inherit; }
 :focus-visible { outline: 1px solid var(--ink); outline-offset: 4px; border-radius: 2px; }
@@ -164,7 +159,7 @@ p { margin: 0 0 16px; }
   font-family: ui-monospace, Menlo, monospace; font-size: 13.5px; letter-spacing: 0; color: var(--ink);
 }
 .ghost {
-  flex: none; font-family: var(--font); font-weight: 300; font-size: 14px; letter-spacing: .1em;
+  flex: none; font-family: var(--font); font-weight: 400; font-size: 14px; letter-spacing: .1em;
   color: var(--ink); background: transparent; border: 1px solid var(--line-strong); border-radius: 999px;
   padding: 6px 18px; cursor: pointer; min-width: 88px;
   transition: transform .35s var(--ease-spring), border-color .3s;
@@ -192,7 +187,7 @@ td + td { color: var(--ink-2); }
 .qa button {
   width: 100%; display: flex; justify-content: space-between; align-items: center; gap: 20px;
   background: none; border: 0; padding: 20px 0; cursor: pointer; text-align: left;
-  font-family: var(--font); font-weight: 300; font-size: 17px; letter-spacing: .03em; color: var(--ink);
+  font-family: var(--font); font-weight: 400; font-size: 17px; letter-spacing: .03em; color: var(--ink);
 }
 .qa .pm { position: relative; width: 11px; height: 11px; flex: none; }
 .qa .pm::before, .qa .pm::after { content: ""; position: absolute; left: 0; top: 5px; width: 11px; height: 1px; background: var(--ink-2);
@@ -281,14 +276,44 @@ td:first-child { width: 30%; }
   .hero { padding: 12px 12px 0; }
   .layout { padding: 12px 12px 48px; }
 }
+/* 字體跟 App 一樣用系統字:中文蘋方、日文冬青黑體、西文 San Francisco */
+html[lang="zh-Hans"] { --font: -apple-system, BlinkMacSystemFont, "PingFang SC", "Noto Sans SC", "Microsoft YaHei", sans-serif; }
+html[lang="ja"] { --font: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic", Meiryo, sans-serif; }
+html[lang="en"], html[lang="es"], html[lang="pt"] { --font: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Segoe UI", Roboto, Arial, sans-serif; }
+html:is([lang="en"], [lang="es"], [lang="pt"]) body, html:is([lang="en"], [lang="es"], [lang="pt"]) body * { letter-spacing: normal !important; }
+/* 語言切換 */
+.lang { position: relative; display: inline-block; vertical-align: middle; }
+.lang-btn { display: inline-flex; align-items: center; gap: 6px; font: inherit; font-size: 13px; letter-spacing: 0; color: var(--ink-2); background: transparent;
+  border: 1px solid var(--line-strong); border-radius: 999px; padding: 3px 11px 3px 8px; cursor: pointer; transition: color .3s, border-color .3s; }
+.lang-btn:hover, .lang-btn[aria-expanded="true"] { color: var(--ink); border-color: rgba(29,29,27,.55); }
+.lang-ico { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 1.1; flex: none; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.lang-menu { position: absolute; right: 0; top: calc(100% + 8px); min-width: 168px; margin: 0; padding: 5px; list-style: none; background: #FBFBF9;
+  border: 1px solid var(--line-strong); border-radius: 10px; box-shadow: 0 14px 34px rgba(29,29,27,.14); z-index: 30; text-align: left; }
+.lang-menu button { width: 100%; display: flex; justify-content: space-between; align-items: center; gap: 14px; font-size: 14px; line-height: 1.4; letter-spacing: 0;
+  color: var(--ink); background: transparent; border: 0; border-radius: 6px; padding: 7px 10px; cursor: pointer; text-align: left; font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif; }
+.lang-menu button[lang="zh-Hant"] { font-family: -apple-system, BlinkMacSystemFont, "PingFang TC", "Noto Sans TC", sans-serif; }
+.lang-menu button[lang="zh-Hans"] { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Noto Sans SC", sans-serif; }
+.lang-menu button[lang="ja"] { font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Noto Sans JP", sans-serif; }
+.lang-menu button:hover, .lang-menu button:focus-visible { background: rgba(29,29,27,.06); outline: none; }
+.lang-menu button[aria-checked="true"]::after { content: ""; width: 9px; height: 5px; margin-top: -3px; border-left: 1.5px solid currentColor; border-bottom: 1.5px solid currentColor; transform: rotate(-45deg); }
+/* 區塊標題:日期不拆行,放不下就換到下一行 */
+.block-h { flex-wrap: wrap; row-gap: 2px; }
+.block-h .meta { white-space: nowrap; }
+/* 頂欄放得下切換鈕 */
+.top nav { align-items: center; }
+.top-r { display: flex; align-items: center; gap: 14px; }
+.top .brand, .top nav a, .top-l .ttl, .top-r .home, .lang-btn { white-space: nowrap; }
+@media (max-width: 520px) { .top-l .sep, .top-l .ttl, .top-r .home, .top nav > a { display: none; } }
+@media (max-width: 520px) { .lang-cur { font-size: 0; } .lang-cur::after { content: attr(data-short); font-size: 13px; } .lang-btn { padding: 3px 9px 3px 7px; } }
 </style>
 </head>
 <body>
 <script>document.documentElement.classList.add('js');</script>
 
 <header class="top">
-  <div class="top-l"><a class="home brand" href="../"><img src="../icons/favicon-64.png" alt="" width="20" height="20">備份都ok</a><span class="sep"></span><span class="ttl">使用說明</span></div>
-  <div class="top-r"><a class="home" href="../">下載</a></div>
+  <div class="top-l"><a class="home brand" href="../"><img src="../icons/favicon-64.png" alt="" width="20" height="20"><span data-i="brand">備份都ok</span></a><span class="sep"></span><span class="ttl" data-i="nav_manual">使用說明</span></div>
+  <div class="top-r"><a class="home" href="../" data-i="dl_btn">下載</a> <div class="lang" id="lang"><button type="button" class="lang-btn" id="langBtn" aria-haspopup="true" aria-expanded="false" aria-controls="langMenu"><svg class="lang-ico" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="6.3"/><path d="M1.7 8h12.6M8 1.7c1.9 1.8 2.8 3.9 2.8 6.3S9.9 12.5 8 14.3M8 1.7C6.1 3.5 5.2 5.6 5.2 8s.9 4.5 2.8 6.3"/></svg><span class="lang-cur" id="langCur">繁體中文</span><span class="sr" data-i="lang_label">語言</span></button><ul class="lang-menu" id="langMenu" role="menu" hidden></ul></div></div>
   <div class="progress" id="progress"></div>
 </header>
 
@@ -492,6 +517,1066 @@ td:first-child { width: 30%; }
   </main>
 </div>
 
+<template data-lang="zh-Hans" data-region=".hero-inner">
+<div class="hero-inner block">
+    <p class="for reveal">使用说明</p>
+    <h1 id="title">备份都ok</h1>
+    <p class="sub reveal">给影像工作者的存储卡备份工具。<br>每一个文件，都读回来再确认一次。</p>
+    <div class="meta reveal">
+      <span>适用于 macOS 13.5 或更高版本</span>
+      <span>首次使用请按顺序读完前四章，约十分钟</span>
+    </div>
+  </div>
+</template>
+<template data-lang="zh-Hans" data-region=".layout">
+<div class="layout">
+  <nav class="rail-wrap reveal" aria-label="章节">
+    <ol class="rail" id="rail">
+      <span class="rail-fill" id="railFill"></span>
+      <li><a href="#install"><span class="dot"></span>安装</a></li>
+      <li><a href="#open"><span class="dot"></span>首次打开</a></li>
+      <li><a href="#perm"><span class="dot"></span>权限</a></li>
+      <li><a href="#key"><span class="dot"></span>启用密钥</a></li>
+      <li><a href="#first"><span class="dot"></span>首次备份</a></li>
+      <li><a href="#features"><span class="dot"></span>功能与设置</a></li>
+      <li><a href="#faq"><span class="dot"></span>常见问题</a></li>
+      <li><a href="#feedback"><span class="dot"></span>反馈问题</a></li>
+    </ol>
+  </nav>
+
+  <main>
+    <!-- 01 -->
+    <section id="install" class="block">
+      <div class="block-h"><h2>安装</h2><span class="meta">第一章</span></div>
+      <div class="block-b">
+      <p class="lede">备份都ok 是一个独立的 Mac 应用程序，拖进“应用程序”文件夹即完成安装，不会在系统里留下其他东西。</p>
+      <ol class="steps">
+        <li><span class="n">1</span><div><div class="h">打开下载的磁盘映像</div><div class="d">从官方网站下载的文件名以 BackupOK 开头、扩展名为 .dmg，双击打开。</div></div></li>
+        <li><span class="n">2</span><div><div class="h">拖进“应用程序”文件夹</div><div class="d">把窗口里的“备份都ok”拖到旁边的“应用程序”快捷方式上。请不要直接在磁盘映像里运行，推出磁盘映像后 App 就会消失。</div></div></li>
+        <li><span class="n">3</span><div><div class="h">推出磁盘映像</div><div class="d">在访达边栏中点按磁盘映像旁的推出按钮，下载的 .dmg 可以删除。</div></div></li>
+      </ol>
+      <h3>系统要求</h3>
+      <div class="tbl"><table>
+        <tr><td>操作系统</td><td>macOS 13.5 或更高版本</td></tr>
+        <tr><td>网络</td><td>启用密钥和检查更新时需要；之后最多可离线使用 14 天</td></tr>
+        <tr><td>读卡</td><td>内置读卡槽、外接读卡器，或相机通过 USB 直接连接均可</td></tr>
+      </table></div>
+      </div>
+    </section>
+
+    <!-- 02 -->
+    <section id="open" class="block">
+      <div class="block-h"><h2>首次打开</h2><span class="meta">第二章</span></div>
+      <div class="block-b">
+      <p class="lede">备份都ok 已通过 Apple 公证。首次打开时，macOS 只会向你确认一次这是从网络下载的 App。</p>
+      <h3>你会看到的提示</h3>
+      <div class="dialog">
+        <div class="cap">系统提示</div>
+        <div class="msg">“备份都ok”是从互联网下载的 App。你确定要打开它吗？</div>
+      </div>
+      <p class="muted">点“打开”即可，之后不会再出现。</p>
+      <div class="note"><div class="h">如果看到“无法验证”或“恶意软件”的提示</div>说明你用的是 2.2 之前的测试版。请把旧版移到废纸篓，从官方网站重新下载安装；设置、预设集和历史记录都会保留，打开后重新输入一次密钥即可。</div>
+      </div>
+    </section>
+
+    <!-- 03 -->
+    <section id="perm" class="block">
+      <div class="block-h"><h2>权限</h2><span class="meta">第三章</span></div>
+      <div class="block-b">
+      <p class="lede">首次使用时，macOS 会陆续询问几项访问权限。请全部选择“允许”，每一项都有其用途。</p>
+      <div class="tbl"><table>
+        <tr><th>系统询问</th><th>用途</th></tr>
+        <tr><td>发送通知</td><td>备份完成、验证失败、存储卡读取不稳定时通知你</td></tr>
+        <tr><td>访问可移除的宗卷上的文件</td><td>读取存储卡内容；如果拒绝，将看不到卡里的文件</td></tr>
+        <tr><td>访问“桌面”或“文稿”文件夹</td><td>写入备份，以及在“文稿”中保存每次的备份记录</td></tr>
+        <tr><td>访问外置磁盘上的文件</td><td>仅在备份到外置硬盘时才会询问</td></tr>
+      </table></div>
+      <h3>不小心点了“不允许”</h3>
+      <p class="muted">可以随时重新开启，无需重新安装。</p>
+      <ol class="steps">
+        <li><span class="n">1</span><div><div class="h">文件夹与可移除的宗卷</div><div class="d"><span class="path">系统设置<i>›</i>隐私与安全性<i>›</i>文件和文件夹<i>›</i>备份都ok</span>，打开对应的项目。</div></div></li>
+        <li><span class="n">2</span><div><div class="h">通知</div><div class="d"><span class="path">系统设置<i>›</i>通知<i>›</i>备份都ok</span>，打开“允许通知”，提醒样式建议选择“横幅”。</div></div></li>
+        <li><span class="n">3</span><div><div class="h">重新打开 App</div><div class="d">权限变更要在下次启动后才会完全生效。</div></div></li>
+      </ol>
+      <div class="note"><div class="h">不需要“完全磁盘访问权限”</div>备份都ok 不会要求完全磁盘访问权限。如果有任何教程让你打开它，请不要照做。</div>
+      </div>
+    </section>
+
+    <!-- 04 -->
+    <section id="key" class="block">
+      <div class="block-h"><h2>启用密钥</h2><span class="meta">第四章</span></div>
+      <div class="block-b">
+      <p class="lede">备份都ok 没有无需启用即可使用的简化版，所有功能都在输入密钥后开放。</p>
+      <ol class="steps">
+        <li><span class="n">1</span><div><div class="h">打开 App，出现“输入密钥”窗口</div><div class="d">密钥格式为 BKOK-XXXX-XXXX-XXXX-XXXX，可直接粘贴，不区分大小写。</div></div></li>
+        <li><span class="n">2</span><div><div class="h">点“启用”</div><div class="d">需要联网。成功后会出现主窗口，密钥会安全地保存在这台 Mac 的钥匙串中，之后打开无需再次输入。</div></div></li>
+      </ol>
+      <h3>一个密钥，一台 Mac</h3>
+      <p class="muted">同一个密钥在另一台 Mac 上启用时，原来那台会退出登录，并收到通知，写明是在哪一台、什么时间启用的。如果不是你本人操作，请立即告诉我们。正在进行的备份不会因此中断，会在完成后才锁定。</p>
+      <h3>更换电脑</h3>
+      <p class="muted">在旧电脑的 <span class="path">设置<i>›</i>通用<i>›</i>授权</span> 中点“在此设备上退出登录”，再到新电脑上输入同一个密钥。也可以直接在新电脑上输入，旧电脑会自动退出登录。</p>
+      <h3>没有网络时</h3>
+      <p class="muted">每次联网时都会自动确认授权。确认后的 14 天内离线也能正常使用，适合外拍或出国。离线超过 11 天时，设置页的授权栏会提醒你抽空联网。</p>
+      </div>
+    </section>
+
+    <!-- 05 -->
+    <section id="first" class="block">
+      <div class="block-h"><h2>首次备份</h2><span class="meta">第五章</span></div>
+      <div class="block-b">
+      <p class="lede">插卡、确认、按下开始。其余的事，备份都ok 会自己做完，并逐一验证。</p>
+      <ol class="steps">
+        <li><span class="n">1</span><div><div class="h">插入存储卡</div><div class="d">主窗口会自动选中刚插入的卡，识别机型，并按卡内实际文件勾选 JPG、RAW、视频、音频。外置硬盘和 SSD 会自动隐藏。</div></div></li>
+        <li><span class="n">2</span><div><div class="h">确认机型</div><div class="d">“机型”栏已自动填写。想用自己的名称可以直接修改；修改后，同一张卡的照片会全部归到你填写的名称下。</div></div></li>
+        <li><span class="n">3</span><div><div class="h">选择备份范围</div><div class="d">整张卡、今天，或近 N 小时。在“近 N 小时”上点右键，可以改为 4、8、12、24、48 小时。</div></div></li>
+        <li><span class="n">4</span><div><div class="h">确认文件类型和备份位置</div><div class="d">只有勾选的类型才会备份，点一下即可切换。“备份至”默认是桌面，旁边的“⋯”可直接进入备份分级设置。</div></div></li>
+        <li><span class="n">5</span><div><div class="h">点“开始备份”</div><div class="d">任务窗口显示进度、速度和剩余时间；卡里有两类及以上文件时，下方还会分别显示照片、视频、音频的进度。每个文件写入后都会读回来做 SHA-256 比对，全部一致才算完成。</div></div></li>
+      </ol>
+      <h3>完成时</h3>
+      <p class="muted">菜单栏的百分比会在 100% 停留一秒，随后从菜单栏图标下方弹出一个小窗口，显示文件数、容量和耗时，同时播放提示音并发送系统通知。任务窗口会自动收起。</p>
+      <p class="muted">只要有任何一个文件验证未通过，备份都ok 就不会推出存储卡，并告诉你有几个文件需要重新处理。</p>
+      <div class="note"><div class="h">再次备份不会重复</div>同一张卡再次备份时，已经备份过的文件会自动跳过，只复制新增的部分。备份中途中断后重新开始，也只补完未完成的文件。</div>
+      </div>
+    </section>
+
+    <!-- 06 -->
+    <section id="features" class="block">
+      <div class="block-h"><h2>功能与设置</h2><span class="meta">第六章</span></div>
+      <div class="block-b">
+      <p class="lede">点主窗口右上角的齿轮打开设置，分为“通用”“备份分级”“历史记录”三个页面。</p>
+      <h3>通用</h3>
+      <div class="tbl"><table>
+        <tr><td>语言</td><td>繁體中文、English、简体中文、日本語、Español、Português</td></tr>
+        <tr><td>外观</td><td>跟随系统、浅色、深色</td></tr>
+        <tr><td>完成后推出存储卡</td><td>全部验证通过后才会推出存储卡</td></tr>
+        <tr><td>完成后打开文件夹</td><td>备份完成后在访达中打开目标文件夹</td></tr>
+        <tr><td>完成提示音</td><td>成功和失败的提示音不同；打开开关时会先试听一次</td></tr>
+        <tr><td>插卡自动勾选文件类型</td><td>按卡内实际文件勾选对应类型。同时拍 JPG 和 RAW 但只备份 RAW 的用户建议关闭</td></tr>
+        <tr><td>授权</td><td>当前的密钥和类型，以及“在此设备上退出登录”</td></tr>
+      </table></div>
+      <h3>备份分级</h3>
+      <p class="muted">决定备份后的文件夹结构。上方是正在使用的层级，从左到右依次创建文件夹；下方是备选层级。</p>
+      <div class="tbl"><table>
+        <tr><td>可用层级</td><td>日期、文件类型、拍摄机型、自定义名称</td></tr>
+        <tr><td>拖动</td><td>在上下两个区域之间移动；叠到另一个层级上会合并为同一层，例如“日期＋拍摄机型”会变成 2026_0925_A7M4</td></tr>
+        <tr><td>右键点按合并的层级</td><td>分离，或前后调换</td></tr>
+        <tr><td>自定义名称</td><td>第一次点击可直接输入，按 Enter 或点击别处保存，按 Esc 取消；之后双击或右键修改。名称过长时以“…”显示，点一下可查看全名</td></tr>
+        <tr><td>多个自定义名称</td><td>点“备份分级”旁的“＋ 自定义名称”添加，最多 5 层，例如组成“日期_地点_模特”；添加的层可以在右键菜单中删除</td></tr>
+        <tr><td>路径预览</td><td>编辑器下方实时显示实际的文件夹路径</td></tr>
+        <tr><td>创建主文件夹</td><td>开启时，所有备份都放在“备份都ok”文件夹内；关闭时，直接放在所选位置</td></tr>
+      </table></div>
+      <h3>预设集</h3>
+      <p class="muted">不同项目需要不同的文件夹结构时，可以把当前的分级存为预设集，下次从下拉菜单一键切换。已选中某个预设集时，点“保存”会用当前的分级更新它；未选中时，点“保存”会请你为新预设集命名。“⋯”菜单中可以另存为新预设集、导出为文件分享给合作伙伴、导入别人的预设集、调整顺序以及删除。</p>
+      <h3>第二备份点</h3>
+      <p class="muted">在备份分级页打开“第二备份点”，主窗口会多出一行“第二备份”。同一次读卡同时写入两个位置，两份各自验证，耗时几乎不变。如果第二个位置是速度较慢的外置硬盘，整体速度以较慢的那块硬盘为准。</p>
+      <h3>多机型自动分类</h3>
+      <p class="muted">一张卡里混有两台相机拍摄的照片时，会自动分到各自的机型文件夹。仅在机型为自动识别、且分级中包含“拍摄机型”时生效；视频不按机型区分。</p>
+      <h3>存储卡稳定性</h3>
+      <p class="muted">备份过程中会持续测量读取速度，多次出现明显卡顿时会当场弹出通知，完成信息中也会标注“读取不稳”。遇到这种情况，先换一个读卡器或换一个接口；如果同一张卡反复出现，就该考虑更换了。</p>
+      <h3>更新</h3>
+      <p class="muted">从 2.2 起，有新版本时会自动提示，也可以通过菜单栏的 <span class="path">备份都ok<i>›</i>检查更新…</span> 手动检查。备份进行中点安装，会等全部备份结束后才重新启动，不会中断正在写入的文件。</p>
+      <h3>历史记录</h3>
+      <p class="muted">设置页保留最近 50 次备份。每次备份还会在 <span class="path">文稿<i>›</i>备份都ok</span> 中另存一份详细记录，包含完整的文件列表。点历史记录行右侧的 ⓘ 即可打开，交付时留作凭证或事后核查都用得上。</p>
+      </div>
+    </section>
+
+    <!-- 07 -->
+    <section id="faq" class="block">
+      <div class="block-h"><h2>常见问题</h2><span class="meta">第七章</span></div>
+      <div class="block-b">
+      <p class="lede">大多数情况都是权限或读卡环境造成的。</p>
+      <div class="faq">
+        <div class="qa"><button type="button" aria-expanded="false">更新后要求重新输入密钥<span class="pm"></span></button><div class="body"><div><p>从 2.1 及更早版本更新到 2.2 时，需要重新输入一次密钥；同一台 Mac 不会被当作新设备。设置、预设集和历史记录会自动保留。</p></div></div></div>
+        <div class="qa"><button type="button" aria-expanded="false">插了卡，存储卡列表却是空的<span class="pm"></span></button><div class="body"><div><p>先点存储卡右侧的刷新。如果仍然没有，请到“系统设置 › 隐私与安全性 › 文件和文件夹”中，确认已允许“可移除的宗卷”。</p></div></div></div>
+        <div class="qa"><button type="button" aria-expanded="false">相机内置 SSD 或录音设备没有出现<span class="pm"></span></button><div class="body"><div><p>备份都ok 会隐藏看起来像外置硬盘的磁盘。如果你的设备被误判，请把设备型号、容量和格式告诉我们，我们会调整判断规则。</p></div></div></div>
+        <div class="qa"><button type="button" aria-expanded="false">没有收到完成通知<span class="pm"></span></button><div class="body"><div><p>完成时菜单栏的小窗口和提示音不受通知权限影响。如果系统通知没有出现，请到“系统设置 › 通知 › 备份都ok”中确认已允许，提醒样式选择“横幅”。</p></div></div></div>
+        <div class="qa"><button type="button" aria-expanded="false">出现“此密钥已在另一台设备启用”<span class="pm"></span></button><div class="body"><div><p>同一个密钥在另一台 Mac 上启用了。如果是你自己操作的，在这台 Mac 上重新输入即可切换回来；如果不是，请联系我们。</p></div></div></div>
+        <div class="qa"><button type="button" aria-expanded="false">出现“无法连接授权服务器”<span class="pm"></span></button><div class="body"><div><p>检查网络后再试一次。已启用过的 Mac 在 14 天内离线也可正常使用，不影响现场工作。</p></div></div></div>
+        <div class="qa"><button type="button" aria-expanded="false">有文件验证失败<span class="pm"></span></button><div class="body"><div><p>存储卡不会被推出。先不要格式化，换一个读卡器后再备份一次；已完成的文件会自动跳过，只重试失败的部分。</p></div></div></div>
+        <div class="qa"><button type="button" aria-expanded="false">速度比预期慢<span class="pm"></span></button><div class="body"><div><p>速度只计算实际复制的文件，已存在而被跳过的文件不计算在内。如果明显偏慢，常见原因依次是读卡器规格、USB 集线器、目标硬盘的速度。</p></div></div></div>
+        <div class="qa"><button type="button" aria-expanded="false">MXF 视频没有被加上访达标签<span class="pm"></span></button><div class="body"><div><p>MXF 格式无法读取视频时长，因此会跳过标签，不影响备份和验证。</p></div></div></div>
+      </div>
+      </div>
+    </section>
+
+    <!-- 08 -->
+    <section id="feedback" class="block">
+      <div class="block-h"><h2>反馈问题</h2><span class="meta">第八章</span></div>
+      <div class="block-b">
+      <p class="lede">请发邮件至 <a href="mailto:imokahhhh@gmail.com">imokahhhh@gmail.com</a>，并附上以下信息，以便我们更快找到原因。</p>
+      <ol class="steps">
+        <li><span class="n">1</span><div><div class="h">屏幕截图</div><div class="d">包含主窗口标题栏，上面有版本号。</div></div></li>
+        <li><span class="n">2</span><div><div class="h">该次备份的详细记录</div><div class="d">在设置的历史记录中点 ⓘ 打开，或在“文稿”里的“备份都ok”文件夹中找到对应时间的文件。</div></div></li>
+        <li><span class="n">3</span><div><div class="h">使用环境</div><div class="d">macOS 版本、相机和存储卡型号、读卡器，以及备份到内置硬盘还是外置硬盘。</div></div></li>
+        <li><span class="n">4</span><div><div class="h">发生了什么、预期是什么</div><div class="d">一两句话即可。能复现的步骤最有帮助。</div></div></li>
+      </ol>
+      <div class="note"><div class="h">请不要公开分享你的密钥</div>密钥与你的用户身份绑定。截图时如果画面上有完整密钥，请先遮挡。</div>
+      <p class="foot">启用时，App 会将这台 Mac 的硬件标识符和电脑名称发送至授权服务器，仅用于单机授权验证。详见<a href="../privacy/">隐私政策</a>。</p>
+      </div>
+    </section>
+  </main>
+</div>
+</template>
+<template data-lang="en" data-region=".hero-inner">
+<div class="hero-inner block">
+    <p class="for reveal">User guide</p>
+    <h1 id="title">Backup OK</h1>
+    <p class="sub reveal">Memory card backup for photographers and filmmakers.<br>Every file is read back and verified.</p>
+    <div class="meta reveal">
+      <span>For macOS 13.5 or later</span>
+      <span>New to the app? Read the first four chapters in order. It takes about 10 minutes.</span>
+    </div>
+  </div>
+</template>
+<template data-lang="en" data-region=".layout">
+<div class="layout">
+  <nav class="rail-wrap reveal" aria-label="Chapters">
+    <ol class="rail" id="rail">
+      <span class="rail-fill" id="railFill"></span>
+      <li><a href="#install"><span class="dot"></span>Install</a></li>
+      <li><a href="#open"><span class="dot"></span>First launch</a></li>
+      <li><a href="#perm"><span class="dot"></span>Permissions</a></li>
+      <li><a href="#key"><span class="dot"></span>Activate your key</a></li>
+      <li><a href="#first"><span class="dot"></span>Your first backup</a></li>
+      <li><a href="#features"><span class="dot"></span>Features and settings</a></li>
+      <li><a href="#faq"><span class="dot"></span>FAQ</a></li>
+      <li><a href="#feedback"><span class="dot"></span>Report a problem</a></li>
+    </ol>
+  </nav>
+
+  <main>
+    <!-- 01 -->
+    <section id="install" class="block">
+      <div class="block-h"><h2>Install</h2><span class="meta">Chapter 1</span></div>
+      <div class="block-b">
+      <p class="lede">Backup OK is a standalone Mac app. Drag it into the Applications folder and you’re done. It doesn’t install anything else on your system.</p>
+      <ol class="steps">
+        <li><span class="n">1</span><div><div class="h">Open the downloaded disk image</div><div class="d">The file you download from the official website starts with BackupOK and ends in .dmg. Double-click it to open it.</div></div></li>
+        <li><span class="n">2</span><div><div class="h">Drag the app into the Applications folder</div><div class="d">Drag Backup OK from the window onto the Applications shortcut next to it. Don’t run the app directly from the disk image. It disappears as soon as you eject the disk image.</div></div></li>
+        <li><span class="n">3</span><div><div class="h">Eject the disk image</div><div class="d">In the Finder sidebar, click the Eject button next to the disk image. You can then delete the downloaded .dmg.</div></div></li>
+      </ol>
+      <h3>System requirements</h3>
+      <div class="tbl"><table>
+        <tr><td>Operating system</td><td>macOS 13.5 or later</td></tr>
+        <tr><td>Internet</td><td>Required to activate your key and check for updates. After that, you can use the app offline for up to 14 days.</td></tr>
+        <tr><td>Card reader</td><td>A built-in card slot, an external card reader or a camera connected directly over USB</td></tr>
+      </table></div>
+      </div>
+    </section>
+
+    <!-- 02 -->
+    <section id="open" class="block">
+      <div class="block-h"><h2>First launch</h2><span class="meta">Chapter 2</span></div>
+      <div class="block-b">
+      <p class="lede">Backup OK is notarized by Apple. The first time you open it, macOS asks you just once to confirm that it’s an app downloaded from the internet.</p>
+      <h3>What you’ll see</h3>
+      <div class="dialog">
+        <div class="cap">macOS alert</div>
+        <div class="msg">“Backup OK” is an app downloaded from the Internet. Are you sure you want to open it?</div>
+      </div>
+      <p class="muted">Click “Open.” You won’t see this message again.</p>
+      <div class="note"><div class="h">If you see a message saying the app “can’t be verified” or mentioning “malware”</div>You have a beta version earlier than 2.2. Move the old version to the Trash, then download and install the app again from the official website. Your settings, presets and history are kept. Just enter your key once more after you open the app.</div>
+      </div>
+    </section>
+
+    <!-- 03 -->
+    <section id="perm" class="block">
+      <div class="block-h"><h2>Permissions</h2><span class="meta">Chapter 3</span></div>
+      <div class="block-b">
+      <p class="lede">The first time you use the app, macOS asks for several permissions, one at a time. Choose “Allow” for all of them. Each one is needed for a specific purpose.</p>
+      <div class="tbl"><table>
+        <tr><th>macOS asks to</th><th>Why it’s needed</th></tr>
+        <tr><td>Send notifications</td><td>To let you know when a backup completes, a file fails verification or card reads are unstable</td></tr>
+        <tr><td>Access files on a removable volume</td><td>To read what’s on your memory card. If you don’t allow it, you won’t see the files on the card.</td></tr>
+        <tr><td>Access files in your Desktop or Documents folder</td><td>To write your backups, and to save a log of each backup in Documents</td></tr>
+        <tr><td>Access files on an external drive</td><td>Asked only when you back up to an external drive</td></tr>
+      </table></div>
+      <h3>If you clicked “Don’t Allow” by mistake</h3>
+      <p class="muted">You can turn access on at any time. There’s no need to reinstall.</p>
+      <ol class="steps">
+        <li><span class="n">1</span><div><div class="h">Folders and removable volumes</div><div class="d">Go to <span class="path">System Settings<i>›</i>Privacy &amp; Security<i>›</i>Files and Folders<i>›</i>Backup OK</span> and turn on the matching items.</div></div></li>
+        <li><span class="n">2</span><div><div class="h">Notifications</div><div class="d">Go to <span class="path">System Settings<i>›</i>Notifications<i>›</i>Backup OK</span> and turn on “Allow notifications.” For the alert style, we recommend “Banners.”</div></div></li>
+        <li><span class="n">3</span><div><div class="h">Reopen the app</div><div class="d">Permission changes take full effect the next time you open the app.</div></div></li>
+      </ol>
+      <div class="note"><div class="h">Full Disk Access isn’t needed</div>Backup OK never asks for Full Disk Access. If a tutorial tells you to turn it on, don’t.</div>
+      </div>
+    </section>
+
+    <!-- 04 -->
+    <section id="key" class="block">
+      <div class="block-h"><h2>Activate your key</h2><span class="meta">Chapter 4</span></div>
+      <div class="block-b">
+      <p class="lede">Backup OK has no limited version that works without activation. Every feature becomes available once you enter a key.</p>
+      <ol class="steps">
+        <li><span class="n">1</span><div><div class="h">Open the app to see the “Enter license key” window</div><div class="d">Keys use the format BKOK-XXXX-XXXX-XXXX-XXXX. You can paste your key directly, and it isn’t case-sensitive.</div></div></li>
+        <li><span class="n">2</span><div><div class="h">Click “Activate”</div><div class="d">An internet connection is required. Once activation succeeds, the main window appears. Your key is stored securely in this Mac’s keychain, so you won’t need to enter it again.</div></div></li>
+      </ol>
+      <h3>One key, one Mac</h3>
+      <p class="muted">When the same key is activated on another Mac, the first Mac is signed out and gets a notification saying which Mac activated the key and when. If it wasn’t you, let us know right away. A backup that’s already in progress isn’t interrupted. The app locks only after it finishes.</p>
+      <h3>Moving to a new Mac</h3>
+      <p class="muted">On your old Mac, go to <span class="path">Settings<i>›</i>General<i>›</i>License</span> and click “Sign out this Mac,” then enter the same key on your new Mac. You can also simply enter the key on the new Mac, and the old one is signed out automatically.</p>
+      <h3>When you’re offline</h3>
+      <p class="muted">Your license is checked automatically whenever you’re connected to the internet. After a successful check, you can use the app offline for 14 days, which is handy for location shoots or travel abroad. Once you’ve been offline for more than 11 days, the License section in Settings reminds you to connect when you get a chance.</p>
+      </div>
+    </section>
+
+    <!-- 05 -->
+    <section id="first" class="block">
+      <div class="block-h"><h2>Your first backup</h2><span class="meta">Chapter 5</span></div>
+      <div class="block-b">
+      <p class="lede">Insert the card, check the settings and click “Start backup.” Backup OK does the rest and verifies every file.</p>
+      <ol class="steps">
+        <li><span class="n">1</span><div><div class="h">Insert a memory card</div><div class="d">The main window automatically selects the card you just inserted, identifies the camera model and turns on JPG, RAW, Video and Audio based on the files actually on the card. External hard drives and SSDs are hidden automatically.</div></div></li>
+        <li><span class="n">2</span><div><div class="h">Check the camera model</div><div class="d">The “Camera” field is filled in automatically. To use a name of your own, just edit it. Once you do, all photos from that card are filed under the name you entered.</div></div></li>
+        <li><span class="n">3</span><div><div class="h">Choose the backup scope</div><div class="d">Choose “Whole card,” “Today” or “Last Nh.” Right-click “Last Nh” to change it to 4, 8, 12, 24 or 48 hours.</div></div></li>
+        <li><span class="n">4</span><div><div class="h">Check the file types and destination</div><div class="d">Only the types that are turned on are backed up. Click a type to turn it on or off. “Save to” is set to the Desktop by default, and the “⋯” button next to it takes you straight to the Hierarchy settings.</div></div></li>
+        <li><span class="n">5</span><div><div class="h">Click “Start backup”</div><div class="d">The Tasks window shows progress, speed and time remaining. If the card holds two or more types of files, separate progress for Photos, Video and Audio appears below. Each file is read back after it’s written and compared using SHA-256. The backup is complete only when every file matches.</div></div></li>
+      </ol>
+      <h3>When the backup finishes</h3>
+      <p class="muted">The percentage in the menu bar stays at 100% for a second. Then a small window pops up below the menu bar icon, showing the number of files, total size and duration. At the same time, a sound plays and a notification is sent. The Tasks window hides automatically.</p>
+      <p class="muted">If even one file fails verification, Backup OK won’t eject the memory card, and it tells you how many files need to be backed up again.</p>
+      <div class="note"><div class="h">Backing up again won’t create duplicates</div>When you back up the same card again, files that were already backed up are skipped automatically, and only new files are copied. If a backup is interrupted partway through, starting it again copies only the files that didn’t finish.</div>
+      </div>
+    </section>
+
+    <!-- 06 -->
+    <section id="features" class="block">
+      <div class="block-h"><h2>Features and settings</h2><span class="meta">Chapter 6</span></div>
+      <div class="block-b">
+      <p class="lede">Click the gear icon in the top-right corner of the main window to open Settings. It has three tabs: General, Hierarchy and History.</p>
+      <h3>General</h3>
+      <div class="tbl"><table>
+        <tr><td>Language</td><td>繁體中文, English, 简体中文, 日本語, Español, Português</td></tr>
+        <tr><td>Theme</td><td>System, Light, Dark</td></tr>
+        <tr><td>Eject after backup</td><td>The memory card is ejected only after every file passes verification.</td></tr>
+        <tr><td>Open folder when done</td><td>Opens the destination in Finder when the backup completes.</td></tr>
+        <tr><td>Completion sound</td><td>Success and failure have different sounds. A preview plays when you turn this on.</td></tr>
+        <tr><td>Auto-select file types on insert</td><td>Turns on the types based on the files actually on the card. If you shoot JPG and RAW but back up only RAW, we recommend turning this off.</td></tr>
+        <tr><td>License</td><td>Your current key and license type, plus “Sign out this Mac”</td></tr>
+      </table></div>
+      <h3>Hierarchy</h3>
+      <p class="muted">This sets the folder structure of your backups. The top area holds the levels in use, which create folders in order from left to right. The bottom area holds the levels you can add.</p>
+      <div class="tbl"><table>
+        <tr><td>Available levels</td><td>Date, File type, Camera, Custom name</td></tr>
+        <tr><td>Drag</td><td>Move levels between the top and bottom areas. Drop one level onto another to merge them into a single level. For example, “Date + Camera” becomes 2026_0925_A7M4.</td></tr>
+        <tr><td>Right-click a merged level</td><td>Choose “Separate” or “Swap order.”</td></tr>
+        <tr><td>Custom name</td><td>The first time, click it and type a name. Press Return or click elsewhere to save, or press Esc to cancel. After that, double-click or right-click it to rename it. Long names are shortened with “…”. Click one to see the full name.</td></tr>
+        <tr><td>Multiple custom names</td><td>Click “+ Custom name” next to “Hierarchy” to add another, up to 5 levels. For example, you can build “Date_Location_Model.” To remove an added level, use its right-click menu.</td></tr>
+        <tr><td>Path preview</td><td>The actual folder path appears below the editor and updates as you edit.</td></tr>
+        <tr><td>Create main folder</td><td>When on, all backups go inside a “Backup OK” folder. When off, they go directly into the location you selected.</td></tr>
+      </table></div>
+      <h3>Presets</h3>
+      <p class="muted">If you use different folder structures for different jobs, save the current hierarchy as a preset, then switch to it from the pop-up menu in one click next time. When a preset is selected, clicking “Save” updates it with the current hierarchy. When no preset is selected, clicking “Save” asks you to name a new preset. From the “⋯” menu, you can save as a new preset, export a preset to a file to share with collaborators, import someone else’s preset, reorder presets and delete them.</p>
+      <h3>Second destination</h3>
+      <p class="muted">Turn on “Second destination” in the Hierarchy tab, and a “Backup 2” row appears in the main window. The card is read once and written to both locations at the same time. Each copy is verified independently, and it takes barely any longer. If the second location is a slower external drive, the overall speed is limited by the slower drive.</p>
+      <h3>Automatic sorting for multiple cameras</h3>
+      <p class="muted">If a card contains photos from two cameras, they’re automatically sorted into a separate folder for each camera model. This works only when the camera model was detected automatically and your hierarchy includes “Camera.” Videos aren’t sorted by camera.</p>
+      <h3>Card read stability</h3>
+      <p class="muted">Read speed is measured throughout the backup. If there are repeated noticeable stalls, you get a notification right away, and the completion message is marked “Unstable reads.” If this happens, first try a different card reader or port. If it keeps happening with the same card, consider replacing the card.</p>
+      <h3>Updates</h3>
+      <p class="muted">Starting with version 2.2, the app lets you know automatically when a new version is available. You can also check manually from the menu bar by choosing <span class="path">Backup OK<i>›</i>Check for Updates…</span>. If you click to install while a backup is in progress, the app waits until all backups have finished before it restarts, so files being written are never interrupted.</p>
+      <h3>History</h3>
+      <p class="muted">Settings keeps a record of your last 50 backups. Each backup also saves a detailed log, including the full file list, in <span class="path">Documents<i>›</i>Backup OK</span>. Click the ⓘ on the right of a history row to open it. It’s useful as proof when delivering work to a client, or for checking back later.</p>
+      </div>
+    </section>
+
+    <!-- 07 -->
+    <section id="faq" class="block">
+      <div class="block-h"><h2>FAQ</h2><span class="meta">Chapter 7</span></div>
+      <div class="block-b">
+      <p class="lede">Most issues come down to permissions or the card-reading setup.</p>
+      <div class="faq">
+        <div class="qa"><button type="button" aria-expanded="false">The app asks for my key again after an update<span class="pm"></span></button><div class="body"><div><p>When you update from version 2.1 or earlier to 2.2, you need to enter your key once more. Your Mac won’t be counted as a new device. Your settings, presets and history are kept automatically.</p></div></div></div>
+        <div class="qa"><button type="button" aria-expanded="false">I inserted a card, but the card list is empty<span class="pm"></span></button><div class="body"><div><p>First, click Refresh to the right of “Card.” If the card still doesn’t appear, go to System Settings › Privacy &amp; Security › Files and Folders and make sure “Removable Volumes” is turned on.</p></div></div></div>
+        <div class="qa"><button type="button" aria-expanded="false">A camera’s built-in SSD or an audio recorder doesn’t show up<span class="pm"></span></button><div class="body"><div><p>Backup OK hides disks that look like external hard drives. If your device is mistaken for one, send us its model, capacity and format, and we’ll adjust the detection rules.</p></div></div></div>
+        <div class="qa"><button type="button" aria-expanded="false">I didn’t get a completion notification<span class="pm"></span></button><div class="body"><div><p>The small menu bar window and the completion sound don’t depend on notification permission. If the system notification doesn’t appear, go to System Settings › Notifications › Backup OK, make sure notifications are allowed and set the alert style to Banners.</p></div></div></div>
+        <div class="qa"><button type="button" aria-expanded="false">I see “This key is already active on another Mac”<span class="pm"></span></button><div class="body"><div><p>The same key was activated on a different Mac. If that was you, enter the key again on this Mac to switch back. If it wasn’t, contact us.</p></div></div></div>
+        <div class="qa"><button type="button" aria-expanded="false">I see “Cannot reach license server”<span class="pm"></span></button><div class="body"><div><p>Check your internet connection and try again. A Mac that has already been activated works normally offline for up to 14 days, so it won’t affect your work on location.</p></div></div></div>
+        <div class="qa"><button type="button" aria-expanded="false">Some files failed verification<span class="pm"></span></button><div class="body"><div><p>The memory card won’t be ejected. Don’t format it yet. Switch to a different card reader and back up again. Files that were completed are skipped automatically, and only the failed ones are retried.</p></div></div></div>
+        <div class="qa"><button type="button" aria-expanded="false">Backups are slower than expected<span class="pm"></span></button><div class="body"><div><p>Speed counts only files that are actually copied. Files skipped because they already exist aren’t included. If it’s noticeably slow, the most common causes, in order, are the card reader’s specs, a USB hub and the speed of the destination drive.</p></div></div></div>
+        <div class="qa"><button type="button" aria-expanded="false">MXF videos don’t get Finder tags<span class="pm"></span></button><div class="body"><div><p>The video duration can’t be read from MXF files, so tagging is skipped. This doesn’t affect backup or verification.</p></div></div></div>
+      </div>
+      </div>
+    </section>
+
+    <!-- 08 -->
+    <section id="feedback" class="block">
+      <div class="block-h"><h2>Report a problem</h2><span class="meta">Chapter 8</span></div>
+      <div class="block-b">
+      <p class="lede">Email <a href="mailto:imokahhhh@gmail.com">imokahhhh@gmail.com</a> and include the information below to help us find the cause faster.</p>
+      <ol class="steps">
+        <li><span class="n">1</span><div><div class="h">A screenshot</div><div class="d">Include the main window’s title bar, which shows the version number.</div></div></li>
+        <li><span class="n">2</span><div><div class="h">The detailed log for that backup</div><div class="d">Open it by clicking ⓘ in the History tab of Settings, or find the file with the matching time in the “Backup OK” folder in Documents.</div></div></li>
+        <li><span class="n">3</span><div><div class="h">Your setup</div><div class="d">Your macOS version, your camera and memory card models, your card reader, and whether you backed up to an internal or external drive.</div></div></li>
+        <li><span class="n">4</span><div><div class="h">What happened, and what you expected</div><div class="d">A sentence or two is enough. Steps to reproduce the problem help the most.</div></div></li>
+      </ol>
+      <div class="note"><div class="h">Please don’t share your key publicly</div>Your key is tied to your identity as a user. If your full key is visible in a screenshot, cover it before sending.</div>
+      <p class="foot">When you activate the app, it sends this Mac’s hardware identifier and computer name to the license server. They’re used only to verify the single-Mac license. For details, see our <a href="../privacy/">privacy policy</a>.</p>
+      </div>
+    </section>
+  </main>
+</div>
+</template>
+<template data-lang="ja" data-region=".hero-inner">
+<div class="hero-inner block">
+    <p class="for reveal">使い方ガイド</p>
+    <h1 id="title">Backup OK</h1>
+    <p class="sub reveal">写真・映像クリエイターのためのメモリーカード・バックアップツール。<br>ファイルを1つ残らず読み戻して、もう一度確かめます。</p>
+    <div class="meta reveal">
+      <span>macOS 13.5 以降に対応</span>
+      <span>初めての方は第1〜4章を順にお読みください（約10分）</span>
+    </div>
+  </div>
+</template>
+<template data-lang="ja" data-region=".layout">
+<div class="layout">
+  <nav class="rail-wrap reveal" aria-label="章">
+    <ol class="rail" id="rail">
+      <span class="rail-fill" id="railFill"></span>
+      <li><a href="#install"><span class="dot"></span>インストール</a></li>
+      <li><a href="#open"><span class="dot"></span>初めて開く</a></li>
+      <li><a href="#perm"><span class="dot"></span>アクセス権</a></li>
+      <li><a href="#key"><span class="dot"></span>キーのアクティベート</a></li>
+      <li><a href="#first"><span class="dot"></span>初めてのバックアップ</a></li>
+      <li><a href="#features"><span class="dot"></span>機能と設定</a></li>
+      <li><a href="#faq"><span class="dot"></span>よくある質問</a></li>
+      <li><a href="#feedback"><span class="dot"></span>問題の報告</a></li>
+    </ol>
+  </nav>
+
+  <main>
+    <!-- 01 -->
+    <section id="install" class="block">
+      <div class="block-h"><h2>インストール</h2><span class="meta">第1章</span></div>
+      <div class="block-b">
+      <p class="lede">Backup OK は単体で動作する Mac アプリです。「アプリケーション」フォルダにドラッグするだけでインストールが完了し、システムにほかのものを残しません。</p>
+      <ol class="steps">
+        <li><span class="n">1</span><div><div class="h">ダウンロードしたディスクイメージを開く</div><div class="d">公式サイトからダウンロードしたファイルは、名前が BackupOK で始まり、拡張子は .dmg です。ダブルクリックして開きます。</div></div></li>
+        <li><span class="n">2</span><div><div class="h">「アプリケーション」フォルダにドラッグ</div><div class="d">ウインドウ内の Backup OK を、隣にある「アプリケーション」フォルダのエイリアスにドラッグします。ディスクイメージ内から直接起動しないでください。ディスクイメージを取り出すと、アプリも消えてしまいます。</div></div></li>
+        <li><span class="n">3</span><div><div class="h">ディスクイメージを取り出す</div><div class="d">Finder のサイドバーで、ディスクイメージの横にある取り出しボタンをクリックします。ダウンロードした .dmg は削除してかまいません。</div></div></li>
+      </ol>
+      <h3>動作環境</h3>
+      <div class="tbl"><table>
+        <tr><td>OS</td><td>macOS 13.5 以降</td></tr>
+        <tr><td>ネットワーク</td><td>キーのアクティベートとアップデートの確認時に必要です。その後は最大14日間オフラインで使用できます</td></tr>
+        <tr><td>カードの読み取り</td><td>内蔵カードスロット、外付けカードリーダー、カメラとの USB 直接接続のいずれにも対応しています</td></tr>
+      </table></div>
+      </div>
+    </section>
+
+    <!-- 02 -->
+    <section id="open" class="block">
+      <div class="block-h"><h2>初めて開く</h2><span class="meta">第2章</span></div>
+      <div class="block-b">
+      <p class="lede">Backup OK は Apple による公証済みです。初めて開くときは、インターネットからダウンロードしたアプリであることを macOS が一度だけ確認します。</p>
+      <h3>表示されるメッセージ</h3>
+      <div class="dialog">
+        <div class="cap">システムのメッセージ</div>
+        <div class="msg">「Backup OK」はインターネットからダウンロードされたアプリケーションです。開いてもよろしいですか？</div>
+      </div>
+      <p class="muted">「開く」をクリックしてください。以降、このメッセージは表示されません。</p>
+      <div class="note"><div class="h">「検証できません」や「マルウェア」というメッセージが表示された場合</div>お使いのバージョンは 2.2 より前のベータ版です。古いバージョンをゴミ箱に入れ、公式サイトからダウンロードし直してインストールしてください。設定、プリセット、履歴はすべて保持されます。開いたあとで、キーをもう一度入力するだけです。</div>
+      </div>
+    </section>
+
+    <!-- 03 -->
+    <section id="perm" class="block">
+      <div class="block-h"><h2>アクセス権</h2><span class="meta">第3章</span></div>
+      <div class="block-b">
+      <p class="lede">初めて使うときは、macOS からいくつかのアクセス許可を順に求められます。どれも必要なものなので、すべて「許可」を選んでください。</p>
+      <div class="tbl"><table>
+        <tr><th>macOS からの確認</th><th>用途</th></tr>
+        <tr><td>通知の送信</td><td>バックアップの完了、検証の失敗、カードの読み取りが不安定なときにお知らせします</td></tr>
+        <tr><td>リムーバブルボリューム上のファイルへのアクセス</td><td>カードの内容を読み取ります。許可しないと、カード内のファイルが表示されません</td></tr>
+        <tr><td>「デスクトップ」フォルダまたは「書類」フォルダへのアクセス</td><td>バックアップの書き込みと、バックアップごとの記録を「書類」フォルダに保存するために使用します</td></tr>
+        <tr><td>外部ディスク上のファイルへのアクセス</td><td>外付けハードディスクにバックアップするときにのみ確認されます</td></tr>
+      </table></div>
+      <h3>誤って「許可しない」をクリックした場合</h3>
+      <p class="muted">あとからいつでも許可できます。再インストールの必要はありません。</p>
+      <ol class="steps">
+        <li><span class="n">1</span><div><div class="h">フォルダとリムーバブルボリューム</div><div class="d"><span class="path">システム設定<i>›</i>プライバシーとセキュリティ<i>›</i>ファイルとフォルダ<i>›</i>Backup OK</span> で、該当する項目をオンにします。</div></div></li>
+        <li><span class="n">2</span><div><div class="h">通知</div><div class="d"><span class="path">システム設定<i>›</i>通知<i>›</i>Backup OK</span> で「通知を許可」をオンにします。通知のスタイルは「バナー」がおすすめです。</div></div></li>
+        <li><span class="n">3</span><div><div class="h">アプリを開き直す</div><div class="d">アクセス権の変更は、次回の起動時に完全に反映されます。</div></div></li>
+      </ol>
+      <div class="note"><div class="h">「フルディスクアクセス」は不要です</div>Backup OK がフルディスクアクセスを求めることはありません。これをオンにするよう案内する説明があっても、従わないでください。</div>
+      </div>
+    </section>
+
+    <!-- 04 -->
+    <section id="key" class="block">
+      <div class="block-h"><h2>キーのアクティベート</h2><span class="meta">第4章</span></div>
+      <div class="block-b">
+      <p class="lede">Backup OK には、アクティベートせずに使える簡易版はありません。すべての機能は、キーを入力したあとに使えるようになります。</p>
+      <ol class="steps">
+        <li><span class="n">1</span><div><div class="h">アプリを開くと「ライセンスキーを入力」ウインドウが表示される</div><div class="d">キーの形式は BKOK-XXXX-XXXX-XXXX-XXXX です。そのまま貼り付けることができ、大文字・小文字は区別されません。</div></div></li>
+        <li><span class="n">2</span><div><div class="h">「アクティベート」をクリック</div><div class="d">インターネット接続が必要です。完了するとメインウインドウが表示されます。キーはこの Mac のキーチェーンに安全に保存されるため、次回からは入力する必要はありません。</div></div></li>
+      </ol>
+      <h3>1つのキーに1台の Mac</h3>
+      <p class="muted">同じキーを別の Mac でアクティベートすると、元の Mac はサインアウトされ、どの Mac でいつアクティベートされたかを記した通知が届きます。ご自身の操作でない場合は、すぐにご連絡ください。進行中のバックアップはこれによって中断されず、完了してからロックされます。</p>
+      <h3>別の Mac に移行するとき</h3>
+      <p class="muted">古い Mac の <span class="path">設定<i>›</i>一般<i>›</i>ライセンス</span> で「このMacをサインアウト」をクリックし、新しい Mac で同じキーを入力します。新しい Mac で直接入力してもかまいません。その場合、古い Mac は自動的にサインアウトされます。</p>
+      <h3>インターネットに接続できないとき</h3>
+      <p class="muted">インターネットに接続するたびに、ライセンスが自動的に確認されます。確認後14日間はオフラインでも通常どおり使えるので、ロケ撮影や海外でも便利です。オフラインが11日を超えると、設定の「ライセンス」欄に、インターネットに接続するよう案内が表示されます。</p>
+      </div>
+    </section>
+
+    <!-- 05 -->
+    <section id="first" class="block">
+      <div class="block-h"><h2>初めてのバックアップ</h2><span class="meta">第5章</span></div>
+      <div class="block-b">
+      <p class="lede">カードを挿して、確認して、開始するだけ。あとは Backup OK が最後まで済ませ、ファイルを1つずつ検証します。</p>
+      <ol class="steps">
+        <li><span class="n">1</span><div><div class="h">カードを挿入する</div><div class="d">メインウインドウで、挿入したカードが自動的に選択され、カメラ機種が認識されます。カード内の実際のファイルに合わせて、JPG、RAW、動画、音声がオンになります。外付けハードディスクや SSD は自動的に非表示になります。</div></div></li>
+        <li><span class="n">2</span><div><div class="h">機種を確認する</div><div class="d">「機種」欄には自動で入力されています。好きな名前にしたい場合は、直接編集できます。編集すると、そのカードの写真はすべて入力した名前でまとめられます。</div></div></li>
+        <li><span class="n">3</span><div><div class="h">範囲を選択する</div><div class="d">「全体」「今日」「N時間以内」から選びます。「N時間以内」を右クリックすると、4、8、12、24、48時間に変更できます。</div></div></li>
+        <li><span class="n">4</span><div><div class="h">ファイル種別と保存先を確認する</div><div class="d">オンになっている種別だけがバックアップされます。クリックで切り替えられます。「保存先」の初期設定は「デスクトップ」です。横にある「⋯」から、「階層」の設定に直接移動できます。</div></div></li>
+        <li><span class="n">5</span><div><div class="h">「バックアップを開始」をクリック</div><div class="d">タスクウインドウに進行状況、速度、残り時間が表示されます。カードに2種類以上のファイルがある場合は、その下に写真、動画、音声それぞれの進行状況も表示されます。書き込んだファイルはすべて読み戻して SHA-256 で照合し、すべて一致した時点で完了となります。</div></div></li>
+      </ol>
+      <h3>完了したとき</h3>
+      <p class="muted">メニューバーのパーセント表示が 100% で1秒止まったあと、メニューバーのアイコンの下に小さなウインドウが現れ、ファイル数、容量、所要時間が表示されます。同時にサウンドが再生され、システムの通知が送信されます。タスクウインドウは自動的に閉じます。</p>
+      <p class="muted">検証に合格しないファイルが1つでもあると、Backup OK はカードを取り出さず、再処理が必要なファイルの数をお知らせします。</p>
+      <div class="note"><div class="h">もう一度バックアップしても重複しません</div>同じカードをもう一度バックアップすると、バックアップ済みのファイルは自動でスキップされ、新しく追加された分だけがコピーされます。途中で中断した場合も、やり直すと未完了のファイルだけをコピーします。</div>
+      </div>
+    </section>
+
+    <!-- 06 -->
+    <section id="features" class="block">
+      <div class="block-h"><h2>機能と設定</h2><span class="meta">第6章</span></div>
+      <div class="block-b">
+      <p class="lede">メインウインドウ右上の歯車アイコンから設定を開きます。設定は「一般」「階層」「履歴」の3つのタブに分かれています。</p>
+      <h3>一般</h3>
+      <div class="tbl"><table>
+        <tr><td>言語</td><td>繁體中文、English、简体中文、日本語、Español、Português</td></tr>
+        <tr><td>外観</td><td>自動、ライト、ダーク</td></tr>
+        <tr><td>完了後に取り出す</td><td>すべてのファイルが検証に合格した場合にのみ、カードを取り出します</td></tr>
+        <tr><td>完了後にフォルダを開く</td><td>バックアップの完了後、保存先を Finder で開きます</td></tr>
+        <tr><td>完了サウンド</td><td>成功時と失敗時で異なるサウンドが鳴ります。オンにすると、確認のために一度再生されます</td></tr>
+        <tr><td>挿入時にファイル種別を自動選択</td><td>カード内の実際のファイルに合わせて種別がオンになります。JPG と RAW で撮影して RAW だけをバックアップする場合は、オフにすることをおすすめします</td></tr>
+        <tr><td>ライセンス</td><td>現在のキーとライセンスの種類、および「このMacをサインアウト」</td></tr>
+      </table></div>
+      <h3>階層</h3>
+      <p class="muted">バックアップのフォルダ構成を決めます。上段は使用中の階層で、左から順にフォルダが作成されます。下段は候補です。</p>
+      <div class="tbl"><table>
+        <tr><td>使用できる階層</td><td>日付、ファイル種別、カメラ機種、カスタム名</td></tr>
+        <tr><td>ドラッグ</td><td>上段と下段の間で移動できます。別の階層の上に重ねると、1つの階層に結合されます。たとえば「日付＋カメラ機種」は 2026_0925_A7M4 になります</td></tr>
+        <tr><td>結合した階層の右クリック</td><td>「分割」または「順序を入れ替え」</td></tr>
+        <tr><td>カスタム名</td><td>初回はクリックしてそのまま入力し、Enter キーを押すかほかの場所をクリックすると保存、Esc キーでキャンセルします。以降はダブルクリックまたは右クリックで編集します。長い名前は「…」で省略表示され、クリックすると全体を確認できます</td></tr>
+        <tr><td>複数のカスタム名</td><td>「階層」の横にある「＋ カスタム名」をクリックして追加します。最大5階層まで追加でき、たとえば「日付_場所_モデル」のように組み合わせられます。追加した階層は右クリックメニューから削除できます</td></tr>
+        <tr><td>パスのプレビュー</td><td>エディタの下に、実際のフォルダのパスがリアルタイムで表示されます</td></tr>
+        <tr><td>メインフォルダを作成</td><td>オンにすると、すべてのバックアップが「Backup OK」フォルダ内に保存されます。オフにすると、選択した場所に直接保存されます</td></tr>
+      </table></div>
+      <h3>プリセット</h3>
+      <p class="muted">案件ごとに異なるフォルダ構成を使う場合は、現在の階層をプリセットとして保存しておくと、次回からポップアップメニューからワンクリックで切り替えられます。プリセットを選択している状態で「保存」をクリックすると、現在の階層でそのプリセットが更新されます。選択していない場合は、「保存」をクリックすると新しいプリセットの名前を入力するよう求められます。「⋯」メニューでは、新しいプリセットとして保存、ファイルに書き出して仲間と共有、ほかの人のプリセットの読み込み、並べ替え、削除ができます。</p>
+      <h3>第2の保存先</h3>
+      <p class="muted">「階層」タブで「第2の保存先」をオンにすると、メインウインドウに「第2保存先」の行が追加されます。1回のカード読み込みで2か所に同時に書き込み、それぞれを検証するため、所要時間はほとんど変わりません。2か所目が低速な外付けハードディスクの場合、全体の速度は遅いほうのディスクに合わせられます。</p>
+      <h3>複数機種の自動振り分け</h3>
+      <p class="muted">1枚のカードに2台のカメラの写真が混在している場合、それぞれの機種のフォルダに自動で振り分けます。機種が自動認識されていて、かつ階層に「カメラ機種」が含まれている場合にのみ有効です。動画は機種別には振り分けません。</p>
+      <h3>カードの読み取りの安定性</h3>
+      <p class="muted">バックアップ中は読み取り速度を常に計測し、明らかな停滞が何度も発生すると、その場で通知します。完了メッセージにも「読取不安定」と表示されます。このような場合は、まずカードリーダーや接続ポートを替えてみてください。同じカードで繰り返し発生する場合は、カードの交換を検討してください。</p>
+      <h3>アップデート</h3>
+      <p class="muted">バージョン 2.2 以降では、新しいバージョンがあると自動的にお知らせします。メニューバーの <span class="path">Backup OK<i>›</i>アップデートを確認…</span> から手動で確認することもできます。バックアップ中に「インストール」をクリックした場合は、すべてのバックアップが終わってから再起動するため、書き込み中のファイルが中断されることはありません。</p>
+      <h3>履歴</h3>
+      <p class="muted">設定には直近50回分のバックアップが保持されます。また、バックアップのたびに、全ファイルのリストを含む詳細な記録が <span class="path">書類<i>›</i>Backup OK</span> に別途保存されます。履歴の行の右側にある ⓘ をクリックすると開けます。納品時の証明や、あとからの確認に役立ちます。</p>
+      </div>
+    </section>
+
+    <!-- 07 -->
+    <section id="faq" class="block">
+      <div class="block-h"><h2>よくある質問</h2><span class="meta">第7章</span></div>
+      <div class="block-b">
+      <p class="lede">ほとんどの問題は、アクセス権かカードの読み取り環境が原因です。</p>
+      <div class="faq">
+        <div class="qa"><button type="button" aria-expanded="false">アップデート後にキーの再入力を求められる<span class="pm"></span></button><div class="body"><div><p>バージョン 2.1 以前から 2.2 にアップデートすると、キーをもう一度入力する必要があります。同じ Mac が新しいデバイスとして扱われることはありません。設定、プリセット、履歴は自動的に保持されます。</p></div></div></div>
+        <div class="qa"><button type="button" aria-expanded="false">カードを挿しても、カードのリストが空のまま<span class="pm"></span></button><div class="body"><div><p>まず、カードの右側にある「更新」をクリックしてください。それでも表示されない場合は、「プライバシーとセキュリティ」の「ファイルとフォルダ」で「リムーバブルボリューム」が許可されているか確認してください。</p></div></div></div>
+        <div class="qa"><button type="button" aria-expanded="false">カメラ内蔵の SSD や録音機器が表示されない<span class="pm"></span></button><div class="body"><div><p>Backup OK は、外付けハードディスクのように見えるディスクを非表示にします。お使いの機器が誤って判定されている場合は、機器の型番、容量、フォーマットをお知らせください。判定ルールを調整します。</p></div></div></div>
+        <div class="qa"><button type="button" aria-expanded="false">完了の通知が届かない<span class="pm"></span></button><div class="body"><div><p>完了時にメニューバーに表示される小さなウインドウとサウンドは、通知の許可設定の影響を受けません。システムの通知が表示されない場合は、「システム設定」›「通知」›「Backup OK」で許可されているか確認し、スタイルを「バナー」にしてください。</p></div></div></div>
+        <div class="qa"><button type="button" aria-expanded="false">「このキーは別の Mac でアクティベートされました」と表示される<span class="pm"></span></button><div class="body"><div><p>同じキーがほかの Mac でアクティベートされました。ご自身の操作であれば、この Mac でキーを再入力すると切り替えられます。そうでない場合は、ご連絡ください。</p></div></div></div>
+        <div class="qa"><button type="button" aria-expanded="false">「ライセンスサーバーに接続できません」と表示される<span class="pm"></span></button><div class="body"><div><p>ネットワークを確認して、もう一度お試しください。アクティベート済みの Mac は14日間オフラインでも通常どおり使えるため、現場での作業に影響はありません。</p></div></div></div>
+        <div class="qa"><button type="button" aria-expanded="false">検証に失敗したファイルがある<span class="pm"></span></button><div class="body"><div><p>カードは取り出されません。フォーマットはせずに、カードリーダーを替えてもう一度バックアップしてください。完了済みのファイルは自動でスキップされ、失敗した分だけが再試行されます。</p></div></div></div>
+        <div class="qa"><button type="button" aria-expanded="false">速度が予想より遅い<span class="pm"></span></button><div class="body"><div><p>速度は実際にコピーしたファイルだけで計算され、既存のためスキップしたファイルは含まれません。明らかに遅い場合、よくある原因は順に、カードリーダーの規格、USB ハブ、保存先ディスクの速度です。</p></div></div></div>
+        <div class="qa"><button type="button" aria-expanded="false">MXF 動画に Finder タグが付かない<span class="pm"></span></button><div class="body"><div><p>MXF 形式では動画の長さを読み取れないため、タグ付けはスキップされます。バックアップと検証には影響しません。</p></div></div></div>
+      </div>
+      </div>
+    </section>
+
+    <!-- 08 -->
+    <section id="feedback" class="block">
+      <div class="block-h"><h2>問題の報告</h2><span class="meta">第8章</span></div>
+      <div class="block-b">
+      <p class="lede">以下の情報を添えて、<a href="mailto:imokahhhh@gmail.com">imokahhhh@gmail.com</a> までメールでお送りください。原因をより早く特定できます。</p>
+      <ol class="steps">
+        <li><span class="n">1</span><div><div class="h">スクリーンショット</div><div class="d">バージョン番号が表示されている、メインウインドウのタイトルバーを含めてください。</div></div></li>
+        <li><span class="n">2</span><div><div class="h">該当するバックアップの詳細な記録</div><div class="d">設定の「履歴」で ⓘ をクリックして開くか、「書類」フォルダ内の「Backup OK」フォルダで該当する日時のファイルを探してください。</div></div></li>
+        <li><span class="n">3</span><div><div class="h">使用環境</div><div class="d">macOS のバージョン、カメラとカードの型番、カードリーダー、内蔵ディスクと外付けディスクのどちらにバックアップしたか。</div></div></li>
+        <li><span class="n">4</span><div><div class="h">起きたことと、期待していた結果</div><div class="d">1〜2文で十分です。再現手順があると特に助かります。</div></div></li>
+      </ol>
+      <div class="note"><div class="h">キーを公開しないでください</div>キーはあなたのユーザー情報に紐づいています。スクリーンショットにキー全体が写っている場合は、先に隠してください。</div>
+      <p class="foot">アクティベート時に、アプリはこの Mac のハードウェア識別子とコンピュータ名をライセンスサーバーに送信します。これは1台の Mac に限定したライセンスの確認にのみ使用されます。詳しくは<a href="../privacy/">プライバシーポリシー</a>をご覧ください。</p>
+      </div>
+    </section>
+  </main>
+</div>
+</template>
+<template data-lang="es" data-region=".hero-inner">
+<div class="hero-inner block">
+    <p class="for reveal">Guía de uso</p>
+    <h1 id="title">Backup OK</h1>
+    <p class="sub reveal">App de copias de seguridad de tarjetas de memoria para fotógrafos y videógrafos.<br>Cada archivo se vuelve a leer y se comprueba.</p>
+    <div class="meta reveal">
+      <span>Para macOS 13.5 o posterior</span>
+      <span>Si es tu primera vez, lee en orden los cuatro primeros capítulos (unos 10 minutos)</span>
+    </div>
+  </div>
+</template>
+<template data-lang="es" data-region=".layout">
+<div class="layout">
+  <nav class="rail-wrap reveal" aria-label="Capítulos">
+    <ol class="rail" id="rail">
+      <span class="rail-fill" id="railFill"></span>
+      <li><a href="#install"><span class="dot"></span>Instalación</a></li>
+      <li><a href="#open"><span class="dot"></span>Abrir por primera vez</a></li>
+      <li><a href="#perm"><span class="dot"></span>Permisos</a></li>
+      <li><a href="#key"><span class="dot"></span>Activación de la clave</a></li>
+      <li><a href="#first"><span class="dot"></span>Primera copia</a></li>
+      <li><a href="#features"><span class="dot"></span>Funciones y ajustes</a></li>
+      <li><a href="#faq"><span class="dot"></span>Preguntas frecuentes</a></li>
+      <li><a href="#feedback"><span class="dot"></span>Informar de un problema</a></li>
+    </ol>
+  </nav>
+
+  <main>
+    <!-- 01 -->
+    <section id="install" class="block">
+      <div class="block-h"><h2>Instalación</h2><span class="meta">Capítulo 1</span></div>
+      <div class="block-b">
+      <p class="lede">Backup OK es una app independiente para Mac: basta con arrastrarla a la carpeta Aplicaciones para instalarla, y no deja nada más en el sistema.</p>
+      <ol class="steps">
+        <li><span class="n">1</span><div><div class="h">Abre la imagen de disco descargada</div><div class="d">El archivo descargado del sitio web oficial empieza por BackupOK y tiene la extensión .dmg. Haz doble clic para abrirlo.</div></div></li>
+        <li><span class="n">2</span><div><div class="h">Arrástrala a la carpeta Aplicaciones</div><div class="d">Arrastra Backup OK desde la ventana hasta el alias de Aplicaciones que aparece al lado. No la ejecutes directamente desde la imagen de disco: al expulsar la imagen, la app desaparecerá.</div></div></li>
+        <li><span class="n">3</span><div><div class="h">Expulsa la imagen de disco</div><div class="d">En la barra lateral del Finder, haz clic en el botón de expulsar junto a la imagen de disco. Después puedes eliminar el archivo .dmg descargado.</div></div></li>
+      </ol>
+      <h3>Requisitos del sistema</h3>
+      <div class="tbl"><table>
+        <tr><td>Sistema operativo</td><td>macOS 13.5 o posterior</td></tr>
+        <tr><td>Red</td><td>Necesaria para activar la clave y buscar actualizaciones; después, puedes usar la app sin conexión hasta 14 días</td></tr>
+        <tr><td>Lectura de tarjetas</td><td>Ranura de tarjetas integrada, lector de tarjetas externo o la cámara conectada directamente por USB</td></tr>
+      </table></div>
+      </div>
+    </section>
+
+    <!-- 02 -->
+    <section id="open" class="block">
+      <div class="block-h"><h2>Abrir por primera vez</h2><span class="meta">Capítulo 2</span></div>
+      <div class="block-b">
+      <p class="lede">Backup OK está notarizada por Apple. La primera vez que la abras, macOS solo te pedirá que confirmes que es una app descargada de internet.</p>
+      <h3>El mensaje que verás</h3>
+      <div class="dialog">
+        <div class="cap">Aviso del sistema</div>
+        <div class="msg">“Backup OK” es una app descargada de internet. ¿Seguro que quieres abrirla?</div>
+      </div>
+      <p class="muted">Haz clic en “Abrir”. El mensaje no volverá a aparecer.</p>
+      <div class="note"><div class="h">Si ves un mensaje de “no se puede verificar” o de “software malicioso”</div>Significa que tienes una beta anterior a la 2.2. Mueve la versión antigua a la Papelera y vuelve a descargarla e instalarla desde el sitio web oficial. Los ajustes, los preajustes y el historial se conservan; al abrirla, solo tendrás que volver a introducir la clave una vez.</div>
+      </div>
+    </section>
+
+    <!-- 03 -->
+    <section id="perm" class="block">
+      <div class="block-h"><h2>Permisos</h2><span class="meta">Capítulo 3</span></div>
+      <div class="block-b">
+      <p class="lede">La primera vez que la uses, macOS te pedirá varios permisos de acceso. Elige “Permitir” en todos: cada uno tiene su función.</p>
+      <div class="tbl"><table>
+        <tr><th>Solicitud del sistema</th><th>Para qué sirve</th></tr>
+        <tr><td>Enviar notificaciones</td><td>Avisarte cuando termina una copia, cuando falla una verificación o cuando la lectura de la tarjeta es inestable</td></tr>
+        <tr><td>Acceder a archivos de volúmenes extraíbles</td><td>Leer el contenido de la tarjeta; si lo deniegas, no verás los archivos de la tarjeta</td></tr>
+        <tr><td>Acceder a la carpeta Escritorio o Documentos</td><td>Escribir las copias y guardar en Documentos el registro de cada copia</td></tr>
+        <tr><td>Acceder a archivos de discos externos</td><td>Solo se pide si copias en un disco duro externo</td></tr>
+      </table></div>
+      <h3>Si hiciste clic en “No permitir” sin querer</h3>
+      <p class="muted">Puedes activarlos en cualquier momento, sin reinstalar la app.</p>
+      <ol class="steps">
+        <li><span class="n">1</span><div><div class="h">Carpetas y volúmenes extraíbles</div><div class="d">Ve a <span class="path">Ajustes del Sistema<i>›</i>Privacidad y seguridad<i>›</i>Archivos y carpetas<i>›</i>Backup OK</span> y activa los elementos correspondientes.</div></div></li>
+        <li><span class="n">2</span><div><div class="h">Notificaciones</div><div class="d">Ve a <span class="path">Ajustes del Sistema<i>›</i>Notificaciones<i>›</i>Backup OK</span> y activa “Permitir notificaciones”. Como estilo de alerta, te recomendamos “Tiras”.</div></div></li>
+        <li><span class="n">3</span><div><div class="h">Vuelve a abrir la app</div><div class="d">Los cambios de permisos se aplican por completo la próxima vez que abras la app.</div></div></li>
+      </ol>
+      <div class="note"><div class="h">No necesita “Acceso total al disco”</div>Backup OK no pide el permiso de acceso total al disco. Si algún tutorial te dice que lo actives, no lo hagas.</div>
+      </div>
+    </section>
+
+    <!-- 04 -->
+    <section id="key" class="block">
+      <div class="block-h"><h2>Activación de la clave</h2><span class="meta">Capítulo 4</span></div>
+      <div class="block-b">
+      <p class="lede">Backup OK no tiene una versión limitada que funcione sin activar: todas las funciones se desbloquean al introducir la clave.</p>
+      <ol class="steps">
+        <li><span class="n">1</span><div><div class="h">Abre la app: aparece la ventana “Introduce la clave”</div><div class="d">La clave tiene el formato BKOK-XXXX-XXXX-XXXX-XXXX. Puedes pegarla directamente; no distingue entre mayúsculas y minúsculas.</div></div></li>
+        <li><span class="n">2</span><div><div class="h">Haz clic en “Activar”</div><div class="d">Necesitas conexión a internet. Si todo va bien, aparecerá la ventana principal. La clave se guarda de forma segura en el llavero de este Mac, así que no tendrás que volver a introducirla.</div></div></li>
+      </ol>
+      <h3>Una clave, un Mac</h3>
+      <p class="muted">Si la misma clave se activa en otro Mac, se cerrará la sesión en el primero, que recibirá un aviso que indica en qué Mac y cuándo se activó. Si no fuiste tú, avísanos de inmediato. Las copias en curso no se interrumpen: terminan y solo entonces se bloquea la app.</p>
+      <h3>Cambiar de Mac</h3>
+      <p class="muted">En el Mac antiguo, ve a <span class="path">Ajustes<i>›</i>General<i>›</i>Licencia</span> y haz clic en “Cerrar sesión en este Mac”; luego introduce la misma clave en el nuevo. También puedes introducirla directamente en el nuevo Mac: la sesión del antiguo se cerrará automáticamente.</p>
+      <h3>Sin conexión a internet</h3>
+      <p class="muted">La licencia se comprueba automáticamente cada vez que te conectas a internet. Tras cada comprobación, puedes usar la app sin conexión durante 14 días, ideal para sesiones en exteriores o viajes al extranjero. Si llevas más de 11 días sin conexión, el apartado “Licencia” de “Ajustes” te recordará que te conectes cuando puedas.</p>
+      </div>
+    </section>
+
+    <!-- 05 -->
+    <section id="first" class="block">
+      <div class="block-h"><h2>Primera copia</h2><span class="meta">Capítulo 5</span></div>
+      <div class="block-b">
+      <p class="lede">Inserta la tarjeta, revisa los ajustes y haz clic en “Iniciar”. Backup OK se encarga del resto y verifica cada archivo.</p>
+      <ol class="steps">
+        <li><span class="n">1</span><div><div class="h">Inserta la tarjeta de memoria</div><div class="d">La ventana principal selecciona automáticamente la tarjeta recién insertada, detecta la cámara y marca JPG, RAW, “Video” y “Audio” según los archivos que contiene. Los discos duros externos y los SSD se ocultan automáticamente.</div></div></li>
+        <li><span class="n">2</span><div><div class="h">Revisa la cámara</div><div class="d">El campo “Cámara” ya viene rellenado. Si prefieres usar tu propio nombre, puedes cambiarlo directamente; todas las fotos de esa tarjeta se guardarán bajo el nombre que escribas.</div></div></li>
+        <li><span class="n">3</span><div><div class="h">Elige el “Rango”</div><div class="d">“Entera”, “Hoy” o “Últimas N h”. Haz clic derecho en “Últimas N h” para cambiarlo a 4, 8, 12, 24 o 48 horas.</div></div></li>
+        <li><span class="n">4</span><div><div class="h">Revisa los tipos de archivo y el destino</div><div class="d">Solo se copian los tipos marcados; haz clic en uno para activarlo o desactivarlo. Por defecto, “Copiar en” apunta al Escritorio, y el botón “⋯” de al lado lleva directamente a los ajustes de “Jerarquía”.</div></div></li>
+        <li><span class="n">5</span><div><div class="h">Haz clic en “Iniciar”</div><div class="d">La ventana “Tareas” muestra el progreso, la velocidad y el tiempo restante; si la tarjeta contiene dos o más tipos de archivo, debajo aparece también el progreso de “Fotos”, “Video” y “Audio” por separado. Cada archivo se vuelve a leer tras escribirse y se compara con SHA-256; la copia solo se da por completada si todos coinciden.</div></div></li>
+      </ol>
+      <h3>Al terminar</h3>
+      <p class="muted">El porcentaje de la barra de menús se queda en el 100 % durante un segundo y, a continuación, aparece una pequeña ventana bajo el icono de la barra de menús con el número de archivos, el tamaño y la duración. A la vez suena un sonido de aviso y se envía una notificación del sistema. La ventana “Tareas” se oculta automáticamente.</p>
+      <p class="muted">Si un solo archivo no supera la verificación, Backup OK no expulsa la tarjeta y te indica cuántos archivos hay que volver a procesar.</p>
+      <div class="note"><div class="h">Volver a copiar no duplica nada</div>Si vuelves a copiar la misma tarjeta, los archivos ya copiados se omiten automáticamente y solo se copia lo nuevo. Si una copia se interrumpe a mitad, al empezar de nuevo solo se copian los archivos que faltaban.</div>
+      </div>
+    </section>
+
+    <!-- 06 -->
+    <section id="features" class="block">
+      <div class="block-h"><h2>Funciones y ajustes</h2><span class="meta">Capítulo 6</span></div>
+      <div class="block-b">
+      <p class="lede">El engranaje de la esquina superior derecha de la ventana principal abre “Ajustes”, que tiene tres pestañas: “General”, “Jerarquía” e “Historial”.</p>
+      <h3>General</h3>
+      <div class="tbl"><table>
+        <tr><td>“Idioma”</td><td>繁體中文, English, 简体中文, 日本語, Español, Português</td></tr>
+        <tr><td>“Aspecto”</td><td>“Automático”, “Claro”, “Oscuro”</td></tr>
+        <tr><td>“Expulsar al terminar”</td><td>La tarjeta solo se expulsa si todos los archivos superan la verificación</td></tr>
+        <tr><td>“Abrir carpeta al terminar”</td><td>Abre el destino en el Finder al terminar la copia</td></tr>
+        <tr><td>“Sonido al completar”</td><td>Suena distinto si la copia sale bien o mal; al activarlo, se reproduce una vez de prueba</td></tr>
+        <tr><td>“Autoseleccionar tipos al insertar”</td><td>Marca los tipos según los archivos que hay en la tarjeta. Si disparas en JPG y RAW pero solo copias los RAW, te recomendamos desactivarlo</td></tr>
+        <tr><td>“Licencia”</td><td>La clave actual y su tipo, además de “Cerrar sesión en este Mac”</td></tr>
+      </table></div>
+      <h3>Jerarquía</h3>
+      <p class="muted">Define la estructura de carpetas de las copias. Arriba están los niveles en uso, que crean carpetas de izquierda a derecha; abajo, los disponibles.</p>
+      <div class="tbl"><table>
+        <tr><td>Niveles disponibles</td><td>“Fecha”, “Tipo”, “Cámara”, “Personalizado”</td></tr>
+        <tr><td>Arrastrar</td><td>Mueve niveles entre las dos zonas. Si sueltas uno encima de otro, se combinan en un mismo nivel; por ejemplo, “Fecha” + “Cámara” da 2026_0925_A7M4</td></tr>
+        <tr><td>Clic derecho en un nivel combinado</td><td>“Separar” o “Invertir orden”</td></tr>
+        <tr><td>“Personalizado”</td><td>La primera vez, haz clic y escribe directamente; pulsa Retorno o haz clic fuera para guardar, o Esc para cancelar. Después, haz doble clic o clic derecho para cambiarlo. Los nombres largos se acortan con “…”; haz clic para ver el nombre completo</td></tr>
+        <tr><td>Varios nombres personalizados</td><td>Añádelos con “+ Personalizado”, junto a “Jerarquía”, hasta 5 niveles; por ejemplo, para formar “Fecha_Lugar_Modelo”. Los niveles añadidos se pueden quitar desde el menú de clic derecho</td></tr>
+        <tr><td>Vista previa de la ruta</td><td>Muestra en tiempo real, bajo el editor, la ruta exacta de las carpetas</td></tr>
+        <tr><td>“Crear carpeta principal”</td><td>Si está activado, todas las copias se guardan dentro de la carpeta “Backup OK”; si está desactivado, directamente en la ubicación elegida</td></tr>
+      </table></div>
+      <h3>Preajustes</h3>
+      <p class="muted">Si usas estructuras de carpetas distintas según el encargo, guarda la jerarquía actual como preajuste y la próxima vez selecciónalo con un clic en el menú desplegable. Si hay un preajuste seleccionado, “Guardar” lo actualiza con la jerarquía actual; si no, “Guardar” te pide un nombre para el nuevo preajuste. En el menú “⋯” encontrarás “Guardar como nuevo preajuste”, “Exportar” (a un archivo para compartirlo con tus colaboradores), “Importar” (preajustes de otras personas), “Reordenar” y “Eliminar”.</p>
+      <h3>Segundo destino</h3>
+      <p class="muted">Activa “Segundo destino” en la pestaña “Jerarquía” y en la ventana principal aparecerá una fila más: “2.ª copia”. La tarjeta se lee una sola vez y se escribe en los dos destinos al mismo tiempo; cada copia se verifica por separado y apenas tarda más. Si el segundo destino es un disco duro externo más lento, la velocidad total la marca el disco más lento.</p>
+      <h3>Clasificación automática por cámara</h3>
+      <p class="muted">Si una tarjeta mezcla fotos de dos cámaras, se reparten automáticamente en la carpeta de cada cámara. Solo funciona cuando la cámara se detectó automáticamente y la jerarquía incluye “Cámara”; los videos no se separan por cámara.</p>
+      <h3>Estabilidad de la tarjeta</h3>
+      <p class="muted">La velocidad de lectura se mide durante toda la copia. Si se producen varios bloqueos notables, recibirás una notificación al momento, y el mensaje final también indicará “Lectura inestable”. Si te ocurre, prueba primero con otro lector de tarjetas u otro puerto; si se repite con la misma tarjeta, plantéate reemplazarla.</p>
+      <h3>Actualizaciones</h3>
+      <p class="muted">Desde la versión 2.2, la app te avisa cuando hay una versión nueva; también puedes comprobarlo manualmente desde la barra de menús en <span class="path">Backup OK<i>›</i>Buscar actualizaciones…</span>. Si eliges instalar durante una copia, la app esperará a que terminen todas las copias para reiniciarse, sin interrumpir los archivos que se están escribiendo.</p>
+      <h3>Historial</h3>
+      <p class="muted">La pestaña “Historial” de “Ajustes” guarda las últimas 50 copias. Además, de cada copia se guarda un registro detallado en <span class="path">Documentos<i>›</i>Backup OK</span>, con la lista completa de archivos. Haz clic en ⓘ, a la derecha de una fila del historial, para abrirlo; te servirá como comprobante al entregar un trabajo o para verificar algo más adelante.</p>
+      </div>
+    </section>
+
+    <!-- 07 -->
+    <section id="faq" class="block">
+      <div class="block-h"><h2>Preguntas frecuentes</h2><span class="meta">Capítulo 7</span></div>
+      <div class="block-b">
+      <p class="lede">La mayoría de los problemas se deben a los permisos o al entorno de lectura de la tarjeta.</p>
+      <div class="faq">
+        <div class="qa"><button type="button" aria-expanded="false">Tras actualizar, me pide volver a introducir la clave<span class="pm"></span></button><div class="body"><div><p>Al actualizar de la versión 2.1 o anterior a la 2.2, hay que introducir la clave una vez más; el mismo Mac no se cuenta como un dispositivo nuevo. Los ajustes, los preajustes y el historial se conservan automáticamente.</p></div></div></div>
+        <div class="qa"><button type="button" aria-expanded="false">Inserté la tarjeta, pero la lista de tarjetas está vacía<span class="pm"></span></button><div class="body"><div><p>Primero haz clic en el botón de actualizar, a la derecha de “Tarjeta”. Si sigue sin aparecer, ve a “Archivos y carpetas” en Privacidad y seguridad y comprueba que “Volúmenes extraíbles” está permitido.</p></div></div></div>
+        <div class="qa"><button type="button" aria-expanded="false">No aparece el SSD integrado de la cámara o la grabadora de audio<span class="pm"></span></button><div class="body"><div><p>Backup OK oculta los discos que parecen discos duros externos. Si tu dispositivo se clasifica mal, indícanos su modelo, capacidad y formato, y ajustaremos las reglas de detección.</p></div></div></div>
+        <div class="qa"><button type="button" aria-expanded="false">No recibo la notificación al terminar<span class="pm"></span></button><div class="body"><div><p>La pequeña ventana de la barra de menús y el sonido al terminar no dependen del permiso de notificaciones. Si no aparece la notificación del sistema, ve a Ajustes del Sistema › Notificaciones › Backup OK, comprueba que está permitida y elige el estilo “Tiras”.</p></div></div></div>
+        <div class="qa"><button type="button" aria-expanded="false">Aparece “Esta clave se activó en otro Mac”<span class="pm"></span></button><div class="body"><div><p>La misma clave se activó en otro Mac. Si fuiste tú, vuelve a introducirla en este Mac para volver a usarla aquí; si no, ponte en contacto con nosotros.</p></div></div></div>
+        <div class="qa"><button type="button" aria-expanded="false">Aparece “No se puede conectar al servidor de licencias”<span class="pm"></span></button><div class="body"><div><p>Revisa la conexión e inténtalo de nuevo. Un Mac ya activado funciona sin conexión durante 14 días, así que no afecta a tu trabajo sobre el terreno.</p></div></div></div>
+        <div class="qa"><button type="button" aria-expanded="false">Algunos archivos no superaron la verificación<span class="pm"></span></button><div class="body"><div><p>La tarjeta no se expulsará. No la formatees todavía: cambia de lector de tarjetas y vuelve a copiarla. Los archivos ya completados se omiten automáticamente y solo se reintentan los que fallaron.</p></div></div></div>
+        <div class="qa"><button type="button" aria-expanded="false">La velocidad es menor de lo esperado<span class="pm"></span></button><div class="body"><div><p>La velocidad solo cuenta los archivos que se copian realmente, no los que ya existían y se omitieron. Si es claramente baja, las causas más habituales, por orden, son las especificaciones del lector de tarjetas, el concentrador USB y la velocidad del disco de destino.</p></div></div></div>
+        <div class="qa"><button type="button" aria-expanded="false">Los videos MXF no reciben etiquetas del Finder<span class="pm"></span></button><div class="body"><div><p>En el formato MXF no se puede leer la duración del video, así que se omite la etiqueta. Esto no afecta a la copia ni a la verificación.</p></div></div></div>
+      </div>
+      </div>
+    </section>
+
+    <!-- 08 -->
+    <section id="feedback" class="block">
+      <div class="block-h"><h2>Informar de un problema</h2><span class="meta">Capítulo 8</span></div>
+      <div class="block-b">
+      <p class="lede">Escribe a <a href="mailto:imokahhhh@gmail.com">imokahhhh@gmail.com</a> e incluye la siguiente información; así podremos encontrar la causa más rápido.</p>
+      <ol class="steps">
+        <li><span class="n">1</span><div><div class="h">Captura de pantalla</div><div class="d">Incluye la barra de título de la ventana principal, donde aparece el número de versión.</div></div></li>
+        <li><span class="n">2</span><div><div class="h">El registro detallado de esa copia</div><div class="d">Ábrelo con ⓘ desde “Historial” en “Ajustes”, o busca el archivo con la hora correspondiente en la carpeta “Backup OK” dentro de Documentos.</div></div></li>
+        <li><span class="n">3</span><div><div class="h">Tu entorno</div><div class="d">La versión de macOS, los modelos de la cámara y de la tarjeta, el lector de tarjetas y si copiabas en el disco interno o en uno externo.</div></div></li>
+        <li><span class="n">4</span><div><div class="h">Qué pasó y qué esperabas</div><div class="d">Con una o dos frases basta. Los pasos para reproducir el problema son lo más útil.</div></div></li>
+      </ol>
+      <div class="note"><div class="h">No compartas tu clave públicamente</div>La clave está vinculada a tu identidad de usuario. Si en una captura se ve la clave completa, tápala antes.</div>
+      <p class="foot">Al activar la clave, la app envía al servidor de licencias el identificador de hardware y el nombre de este Mac, solo para verificar que la licencia se usa en un único Mac. Más información en la <a href="../privacy/">política de privacidad</a>.</p>
+      </div>
+    </section>
+  </main>
+</div>
+</template>
+<template data-lang="pt" data-region=".hero-inner">
+<div class="hero-inner block">
+    <p class="for reveal">Guia de uso</p>
+    <h1 id="title">Backup OK</h1>
+    <p class="sub reveal">Backup de cartões de memória para fotógrafos e videomakers.<br>Cada arquivo é lido de volta e conferido.</p>
+    <div class="meta reveal">
+      <span>Para macOS 13.5 ou posterior</span>
+      <span>Se for a sua primeira vez, leia os quatro primeiros capítulos em ordem (cerca de 10 minutos)</span>
+    </div>
+  </div>
+</template>
+<template data-lang="pt" data-region=".layout">
+<div class="layout">
+  <nav class="rail-wrap reveal" aria-label="Capítulos">
+    <ol class="rail" id="rail">
+      <span class="rail-fill" id="railFill"></span>
+      <li><a href="#install"><span class="dot"></span>Instalação</a></li>
+      <li><a href="#open"><span class="dot"></span>Primeira abertura</a></li>
+      <li><a href="#perm"><span class="dot"></span>Permissões</a></li>
+      <li><a href="#key"><span class="dot"></span>Ativar a chave</a></li>
+      <li><a href="#first"><span class="dot"></span>Primeiro backup</a></li>
+      <li><a href="#features"><span class="dot"></span>Recursos e ajustes</a></li>
+      <li><a href="#faq"><span class="dot"></span>Perguntas frequentes</a></li>
+      <li><a href="#feedback"><span class="dot"></span>Relatar um problema</a></li>
+    </ol>
+  </nav>
+
+  <main>
+    <!-- 01 -->
+    <section id="install" class="block">
+      <div class="block-h"><h2>Instalação</h2><span class="meta">Capítulo 1</span></div>
+      <div class="block-b">
+      <p class="lede">O Backup OK é um app independente para Mac. Para instalar, basta arrastá-lo para a pasta Aplicativos; nada mais fica no sistema.</p>
+      <ol class="steps">
+        <li><span class="n">1</span><div><div class="h">Abra a imagem de disco baixada</div><div class="d">O arquivo baixado do site oficial começa com BackupOK e tem a extensão .dmg. Clique duas vezes para abri-lo.</div></div></li>
+        <li><span class="n">2</span><div><div class="h">Arraste para a pasta Aplicativos</div><div class="d">Na janela, arraste o Backup OK até o atalho da pasta Aplicativos ao lado. Não execute o app direto da imagem de disco: ao ejetá-la, o app desaparece.</div></div></li>
+        <li><span class="n">3</span><div><div class="h">Ejete a imagem de disco</div><div class="d">Na barra lateral do Finder, clique no botão de ejetar ao lado da imagem de disco. O .dmg baixado pode ser apagado.</div></div></li>
+      </ol>
+      <h3>Requisitos do sistema</h3>
+      <div class="tbl"><table>
+        <tr><td>Sistema operacional</td><td>macOS 13.5 ou posterior</td></tr>
+        <tr><td>Internet</td><td>Necessária para ativar a chave e procurar atualizações; depois, o app funciona offline por até 14 dias</td></tr>
+        <tr><td>Leitura de cartões</td><td>Slot de cartão integrado, leitor externo ou a própria câmera conectada por USB</td></tr>
+      </table></div>
+      </div>
+    </section>
+
+    <!-- 02 -->
+    <section id="open" class="block">
+      <div class="block-h"><h2>Primeira abertura</h2><span class="meta">Capítulo 2</span></div>
+      <div class="block-b">
+      <p class="lede">O Backup OK é notarizado pela Apple. Na primeira vez que você o abrir, o macOS só pede uma confirmação de que é um app baixado da internet.</p>
+      <h3>A mensagem que você verá</h3>
+      <div class="dialog">
+        <div class="cap">Aviso do sistema</div>
+        <div class="msg">“Backup OK” é um app baixado da Internet. Tem certeza de que deseja abri-lo?</div>
+      </div>
+      <p class="muted">Clique em “Abrir”. A mensagem não aparecerá de novo.</p>
+      <div class="note"><div class="h">Se aparecer uma mensagem de “não foi possível verificar” ou de “malware”</div>Você está com uma versão beta anterior à 2.2. Mova a versão antiga para o Lixo, baixe o app novamente no site oficial e instale-o. Ajustes, predefinições e histórico são mantidos; ao abrir o app, basta inserir a chave mais uma vez.</div>
+      </div>
+    </section>
+
+    <!-- 03 -->
+    <section id="perm" class="block">
+      <div class="block-h"><h2>Permissões</h2><span class="meta">Capítulo 3</span></div>
+      <div class="block-b">
+      <p class="lede">No primeiro uso, o macOS vai pedir algumas permissões de acesso. Escolha “Permitir” em todas: cada uma tem uma finalidade.</p>
+      <div class="tbl"><table>
+        <tr><th>O que o sistema pede</th><th>Para quê</th></tr>
+        <tr><td>Enviar notificações</td><td>Avisar quando o backup terminar, quando a verificação falhar ou quando a leitura do cartão estiver instável</td></tr>
+        <tr><td>Acessar arquivos em volumes removíveis</td><td>Ler o conteúdo do cartão; se você negar, os arquivos do cartão não aparecem</td></tr>
+        <tr><td>Acessar a pasta Mesa ou Documentos</td><td>Gravar os backups e guardar em Documentos o registro de cada backup</td></tr>
+        <tr><td>Acessar arquivos em discos externos</td><td>Só é pedido ao fazer backup em um disco externo</td></tr>
+      </table></div>
+      <h3>Clicou em “Não Permitir” sem querer?</h3>
+      <p class="muted">Você pode conceder a permissão a qualquer momento, sem reinstalar.</p>
+      <ol class="steps">
+        <li><span class="n">1</span><div><div class="h">Pastas e volumes removíveis</div><div class="d">Em <span class="path">Ajustes do Sistema<i>›</i>Privacidade e Segurança<i>›</i>Arquivos e Pastas<i>›</i>Backup OK</span>, ative os itens correspondentes.</div></div></li>
+        <li><span class="n">2</span><div><div class="h">Notificações</div><div class="d">Em <span class="path">Ajustes do Sistema<i>›</i>Notificações<i>›</i>Backup OK</span>, ative “Permitir Notificações”. Recomendamos o estilo de alerta “Faixas”.</div></div></li>
+        <li><span class="n">3</span><div><div class="h">Reabra o app</div><div class="d">As mudanças de permissão só têm efeito completo na próxima vez que o app for aberto.</div></div></li>
+      </ol>
+      <div class="note"><div class="h">“Acesso Total ao Disco” não é necessário</div>O Backup OK não pede acesso total ao disco. Se algum tutorial disser para ativá-lo, não siga.</div>
+      </div>
+    </section>
+
+    <!-- 04 -->
+    <section id="key" class="block">
+      <div class="block-h"><h2>Ativar a chave</h2><span class="meta">Capítulo 4</span></div>
+      <div class="block-b">
+      <p class="lede">O Backup OK não tem uma versão limitada que funcione sem ativação: todos os recursos são liberados depois que você insere a chave.</p>
+      <ol class="steps">
+        <li><span class="n">1</span><div><div class="h">Abra o app; aparece a janela “Insira a chave”</div><div class="d">O formato da chave é BKOK-XXXX-XXXX-XXXX-XXXX. Você pode colá-la diretamente; maiúsculas e minúsculas não fazem diferença.</div></div></li>
+        <li><span class="n">2</span><div><div class="h">Clique em “Ativar”</div><div class="d">É preciso estar conectado à internet. Depois da ativação, a janela principal aparece e a chave fica guardada com segurança no Acesso às Chaves deste Mac, então você não precisa digitá-la de novo.</div></div></li>
+      </ol>
+      <h3>Uma chave, um Mac</h3>
+      <p class="muted">Quando a mesma chave é ativada em outro Mac, a sessão no primeiro é encerrada e você recebe uma notificação dizendo em qual Mac e quando ela foi ativada. Se não foi você, avise-nos imediatamente. Um backup em andamento não é interrompido por isso: ele termina e só então o app é bloqueado.</p>
+      <h3>Trocar de computador</h3>
+      <p class="muted">No computador antigo, vá em <span class="path">Ajustes<i>›</i>Geral<i>›</i>Licença</span> e clique em “Encerrar sessão neste Mac”; depois, insira a mesma chave no novo computador. Também é possível inseri-la direto no novo: a sessão no antigo é encerrada automaticamente.</p>
+      <h3>Sem internet</h3>
+      <p class="muted">A licença é confirmada automaticamente sempre que há conexão com a internet. Depois de confirmada, o app funciona normalmente offline por 14 dias, ideal para trabalhos em campo ou viagens internacionais. Após 11 dias offline, a seção “Licença” nos ajustes lembra você de se conectar quando puder.</p>
+      </div>
+    </section>
+
+    <!-- 05 -->
+    <section id="first" class="block">
+      <div class="block-h"><h2>Primeiro backup</h2><span class="meta">Capítulo 5</span></div>
+      <div class="block-b">
+      <p class="lede">Insira o cartão, confira e clique em Iniciar. O Backup OK cuida do resto e verifica cada arquivo.</p>
+      <ol class="steps">
+        <li><span class="n">1</span><div><div class="h">Insira o cartão de memória</div><div class="d">A janela principal seleciona automaticamente o cartão recém-inserido, detecta a câmera e marca JPG, RAW, “Vídeo” e “Áudio” conforme os arquivos presentes no cartão. Discos externos e SSDs ficam ocultos automaticamente.</div></div></li>
+        <li><span class="n">2</span><div><div class="h">Confira a câmera</div><div class="d">O campo “Câmera” já vem preenchido. Se quiser usar um nome seu, edite-o diretamente; depois disso, todas as fotos desse cartão ficam sob o nome que você escreveu.</div></div></li>
+        <li><span class="n">3</span><div><div class="h">Escolha o escopo</div><div class="d">“Tudo”, “Hoje” ou “Últimas N h”. Clique com o botão direito em “Últimas N h” para mudar para 4, 8, 12, 24 ou 48 horas.</div></div></li>
+        <li><span class="n">4</span><div><div class="h">Confira os tipos de arquivo e o destino</div><div class="d">Só os tipos marcados são copiados; clique em um tipo para alterná-lo. “Destino” é “Mesa” por padrão, e o “⋯” ao lado abre direto os ajustes de “Hierarquia”.</div></div></li>
+        <li><span class="n">5</span><div><div class="h">Clique em “Iniciar”</div><div class="d">A janela “Tarefas” mostra o progresso, a velocidade e o tempo restante; quando o cartão tem dois ou mais tipos de arquivo, aparece também, logo abaixo, o progresso separado de fotos, vídeos e áudios. Cada arquivo é lido de volta após a gravação e comparado por SHA-256; o backup só é concluído quando tudo confere.</div></div></li>
+      </ol>
+      <h3>Ao terminar</h3>
+      <p class="muted">A porcentagem na barra de menus fica em 100% por um segundo e, em seguida, uma pequena janela surge abaixo do ícone da barra de menus com o número de arquivos, o tamanho e a duração. Ao mesmo tempo, toca um som e é enviada uma notificação do sistema. A janela “Tarefas” se fecha automaticamente.</p>
+      <p class="muted">Se um único arquivo não passar na verificação, o Backup OK não ejeta o cartão e informa quantos arquivos precisam ser processados novamente.</p>
+      <div class="note"><div class="h">Fazer backup de novo não duplica nada</div>Ao fazer backup do mesmo cartão outra vez, os arquivos já copiados são ignorados e só o que é novo é copiado. Se o backup for interrompido no meio, ao recomeçar só são copiados os arquivos que faltam.</div>
+      </div>
+    </section>
+
+    <!-- 06 -->
+    <section id="features" class="block">
+      <div class="block-h"><h2>Recursos e ajustes</h2><span class="meta">Capítulo 6</span></div>
+      <div class="block-b">
+      <p class="lede">A engrenagem no canto superior direito da janela principal abre os ajustes, divididos em três abas: “Geral”, “Hierarquia” e “Histórico”.</p>
+      <h3>Geral</h3>
+      <div class="tbl"><table>
+        <tr><td>Idioma</td><td>繁體中文, English, 简体中文, 日本語, Español, Português</td></tr>
+        <tr><td>Aparência</td><td>Automática, Clara, Escura</td></tr>
+        <tr><td>Ejetar ao concluir</td><td>O cartão só é ejetado quando todos os arquivos passam na verificação</td></tr>
+        <tr><td>Abrir pasta ao concluir</td><td>Abre o destino no Finder quando o backup termina</td></tr>
+        <tr><td>Som ao concluir</td><td>Sons diferentes para sucesso e falha; ao ativar a opção, você ouve uma prévia</td></tr>
+        <tr><td>Selecionar tipos ao inserir</td><td>Marca os tipos conforme os arquivos presentes no cartão. Se você fotografa em JPG e RAW, mas só faz backup do RAW, recomendamos desativar</td></tr>
+        <tr><td>Licença</td><td>A chave atual e o tipo de licença, além de “Encerrar sessão neste Mac”</td></tr>
+      </table></div>
+      <h3>Hierarquia</h3>
+      <p class="muted">Define a estrutura de pastas do backup. Em cima ficam os níveis em uso, que criam as pastas em ordem, da esquerda para a direita; embaixo ficam os disponíveis.</p>
+      <div class="tbl"><table>
+        <tr><td>Níveis disponíveis</td><td>Data, Tipo, Câmera, Nome pers.</td></tr>
+        <tr><td>Arrastar</td><td>Move níveis entre as duas áreas. Solte um nível sobre outro para combiná-los em um só; por exemplo, “Data” + “Câmera” vira 2026_0925_A7M4</td></tr>
+        <tr><td>Nível combinado (botão direito)</td><td>“Separar” ou “Inverter ordem”</td></tr>
+        <tr><td>Nome pers.</td><td>No primeiro clique, digite direto; pressione Enter ou clique fora para salvar, ou Esc para cancelar. Depois, clique duas vezes ou use o botão direito para editar. Nomes longos aparecem com “…”; clique para ver o nome completo</td></tr>
+        <tr><td>Vários nomes personalizados</td><td>Clique em “+ Nome pers.” ao lado de “Hierarquia” para adicionar até 5 níveis, por exemplo para formar “Data_Local_Modelo”. Os níveis adicionados podem ser removidos pelo menu do botão direito</td></tr>
+        <tr><td>Prévia do caminho</td><td>Mostra em tempo real, abaixo do editor, o caminho real das pastas</td></tr>
+        <tr><td>Criar pasta principal</td><td>Ativado: todos os backups ficam dentro da pasta “Backup OK”. Desativado: vão direto para o local escolhido</td></tr>
+      </table></div>
+      <h3>Predefinições</h3>
+      <p class="muted">Se você usa estruturas de pastas diferentes para cada trabalho, salve a hierarquia atual como predefinição e, da próxima vez, troque com um clique no menu suspenso. Com uma predefinição selecionada, “Salvar” a atualiza com a hierarquia atual; sem nenhuma selecionada, “Salvar” pede um nome para a nova predefinição. No menu “⋯”, você pode “Salvar como nova predefinição”, “Exportar” para um arquivo e compartilhar com colegas, “Importar” predefinições de outras pessoas, “Reordenar” e “Excluir”.</p>
+      <h3>Segundo destino</h3>
+      <p class="muted">Ative “Segundo destino” na aba “Hierarquia” e a janela principal ganha a linha “2º backup”. O cartão é lido uma vez e gravado nos dois lugares ao mesmo tempo; cada cópia é verificada separadamente, e o tempo total quase não muda. Se o segundo destino for um disco externo mais lento, a velocidade geral acompanha o disco mais lento.</p>
+      <h3>Separação automática por câmera</h3>
+      <p class="muted">Quando um cartão tem fotos de duas câmeras, elas são separadas automaticamente na pasta de cada câmera. Isso só acontece quando a câmera foi detectada automaticamente e a hierarquia inclui o nível “Câmera”; vídeos não são separados por câmera.</p>
+      <h3>Estabilidade do cartão</h3>
+      <p class="muted">A velocidade de leitura é medida durante todo o backup. Se houver vários travamentos evidentes, uma notificação aparece na hora, e a mensagem de conclusão também mostra “Leitura instável”. Quando isso acontecer, tente primeiro outro leitor de cartão ou outra porta; se o mesmo cartão continuar apresentando o problema, é hora de pensar em substituí-lo.</p>
+      <h3>Atualizações</h3>
+      <p class="muted">A partir da 2.2, o app avisa automaticamente quando há uma nova versão, e você também pode verificar manualmente em <span class="path">Backup OK<i>›</i>Procurar Atualizações…</span> na barra de menus. Se você clicar em instalar durante um backup, o app só reinicia depois que todos os backups terminarem, sem interromper os arquivos que estão sendo gravados.</p>
+      <h3>Histórico</h3>
+      <p class="muted">A aba “Histórico” dos ajustes guarda os últimos 50 backups. Cada backup também gera um registro detalhado em <span class="path">Documentos<i>›</i>Backup OK</span>, com a lista completa de arquivos. Clique no ⓘ à direita de uma linha do histórico para abri-lo: é útil como comprovante na entrega de um trabalho ou para conferir algo depois.</p>
+      </div>
+    </section>
+
+    <!-- 07 -->
+    <section id="faq" class="block">
+      <div class="block-h"><h2>Perguntas frequentes</h2><span class="meta">Capítulo 7</span></div>
+      <div class="block-b">
+      <p class="lede">A maioria dos problemas vem das permissões ou do ambiente de leitura do cartão.</p>
+      <div class="faq">
+        <div class="qa"><button type="button" aria-expanded="false">Depois de atualizar, o app pede a chave de novo<span class="pm"></span></button><div class="body"><div><p>Ao atualizar de uma versão 2.1 ou anterior para a 2.2, é preciso inserir a chave mais uma vez; o mesmo Mac não é tratado como um novo dispositivo. Ajustes, predefinições e histórico são mantidos automaticamente.</p></div></div></div>
+        <div class="qa"><button type="button" aria-expanded="false">Inseri o cartão, mas a lista de cartões está vazia<span class="pm"></span></button><div class="body"><div><p>Primeiro clique em “Atualizar”, à direita de “Cartão”. Se ainda não aparecer nada, vá em Ajustes do Sistema › Privacidade e Segurança › Arquivos e Pastas e confirme que “Volumes Removíveis” está permitido.</p></div></div></div>
+        <div class="qa"><button type="button" aria-expanded="false">O SSD integrado da câmera ou o gravador de áudio não aparece<span class="pm"></span></button><div class="body"><div><p>O Backup OK oculta discos que parecem ser discos externos. Se o seu dispositivo foi identificado incorretamente, informe-nos o modelo, a capacidade e o formato dele, e ajustaremos as regras de detecção.</p></div></div></div>
+        <div class="qa"><button type="button" aria-expanded="false">Não recebi a notificação de conclusão<span class="pm"></span></button><div class="body"><div><p>A pequena janela na barra de menus e o som de conclusão não dependem da permissão de notificações. Se a notificação do sistema não aparecer, vá em Ajustes do Sistema › Notificações › Backup OK, confirme que as notificações estão permitidas e escolha o estilo “Faixas”.</p></div></div></div>
+        <div class="qa"><button type="button" aria-expanded="false">Aparece “Esta chave foi ativada em outro Mac”<span class="pm"></span></button><div class="body"><div><p>A mesma chave foi ativada em outro Mac. Se foi você, basta inserir a chave novamente neste Mac para voltar a usá-la aqui; se não foi, entre em contato conosco.</p></div></div></div>
+        <div class="qa"><button type="button" aria-expanded="false">Aparece “Não foi possível conectar ao servidor”<span class="pm"></span></button><div class="body"><div><p>Verifique a conexão com a internet e tente novamente. Um Mac já ativado funciona normalmente offline por até 14 dias, sem atrapalhar o trabalho em campo.</p></div></div></div>
+        <div class="qa"><button type="button" aria-expanded="false">Alguns arquivos não passaram na verificação<span class="pm"></span></button><div class="body"><div><p>O cartão não será ejetado. Não o formate ainda: troque de leitor de cartão e faça o backup novamente. Os arquivos já concluídos são ignorados automaticamente, e só os que falharam são copiados de novo.</p></div></div></div>
+        <div class="qa"><button type="button" aria-expanded="false">A velocidade está abaixo do esperado<span class="pm"></span></button><div class="body"><div><p>A velocidade considera apenas os arquivos realmente copiados; os que já existiam e foram ignorados não entram na conta. Se estiver muito lenta, as causas mais comuns são, nesta ordem: as especificações do leitor de cartão, o hub USB e a velocidade do disco de destino.</p></div></div></div>
+        <div class="qa"><button type="button" aria-expanded="false">Vídeos MXF não recebem etiqueta do Finder<span class="pm"></span></button><div class="body"><div><p>Não é possível ler a duração de vídeos no formato MXF, então a etiqueta não é aplicada. Isso não afeta o backup nem a verificação.</p></div></div></div>
+      </div>
+      </div>
+    </section>
+
+    <!-- 08 -->
+    <section id="feedback" class="block">
+      <div class="block-h"><h2>Relatar um problema</h2><span class="meta">Capítulo 8</span></div>
+      <div class="block-b">
+      <p class="lede">Escreva para <a href="mailto:imokahhhh@gmail.com">imokahhhh@gmail.com</a> e inclua as informações abaixo; assim encontramos a causa mais rápido.</p>
+      <ol class="steps">
+        <li><span class="n">1</span><div><div class="h">Captura de tela</div><div class="d">Inclua a barra de título da janela principal, que mostra o número da versão.</div></div></li>
+        <li><span class="n">2</span><div><div class="h">O registro detalhado desse backup</div><div class="d">Abra-o pelo ⓘ no “Histórico” dos ajustes ou procure, na pasta “Backup OK” dentro de Documentos, o arquivo com o horário correspondente.</div></div></li>
+        <li><span class="n">3</span><div><div class="h">Seu ambiente</div><div class="d">Versão do macOS, modelos da câmera e do cartão, leitor de cartão e se o backup foi para o disco interno ou para um disco externo.</div></div></li>
+        <li><span class="n">4</span><div><div class="h">O que aconteceu e o que você esperava</div><div class="d">Uma ou duas frases bastam. Passos para reproduzir o problema ajudam muito.</div></div></li>
+      </ol>
+      <div class="note"><div class="h">Não compartilhe sua chave publicamente</div>A chave está vinculada à sua identidade de usuário. Se a chave completa aparecer em uma captura de tela, cubra-a antes de enviar.</div>
+      <p class="foot">Na ativação, o app envia o identificador de hardware e o nome deste Mac ao servidor de licenças, usados apenas para verificar a licença de uso em um único Mac. Veja a <a href="../privacy/">Política de Privacidade</a>.</p>
+      </div>
+    </section>
+  </main>
+</div>
+</template>
+<script>
+// 多國語言(與首頁相同的六種語言與偵測順序:網址 ?lang= → 上次選的 → 系統語言 → 英文)
+// 內文的各語言版本放在 <template data-lang data-region>,載入時換上;切換語言會重新載入頁面
+(function () {
+  var D = {"brand": ["備份都ok", "备份都ok", "Backup OK", "Backup OK", "Backup OK", "Backup OK"], "nav_manual": ["使用說明", "使用说明", "User guide", "使い方ガイド", "Guía de uso", "Guia de uso"], "nav_privacy": ["隱私權政策", "隐私政策", "Privacy", "プライバシーポリシー", "Privacidad", "Privacidade"], "dl_btn": ["下載", "下载", "Download", "ダウンロード", "Descargar", "Baixar"], "copyright": ["© 2026 備份都ok", "© 2026 备份都ok", "© 2026 Backup OK", "© 2026 Backup OK", "© 2026 Backup OK", "© 2026 Backup OK"], "lang_label": ["語言", "语言", "Language", "言語", "Idioma", "Idioma"], "title_manual": ["備份都ok 使用說明", "备份都ok 使用说明", "Backup OK User Guide", "Backup OK 使い方ガイド", "Guía de uso de Backup OK", "Guia de uso do Backup OK"], "title_privacy": ["備份都ok 隱私權政策", "备份都ok 隐私政策", "Backup OK Privacy Policy", "Backup OK プライバシーポリシー", "Política de privacidad de Backup OK", "Política de Privacidade do Backup OK"]}, PAGE = 'manual';
+  var LANGS = ['zh-Hant', 'zh-Hans', 'en', 'ja', 'es', 'pt'];
+  var NAMES = { 'zh-Hant': '繁體中文', 'zh-Hans': '简体中文', en: 'English', ja: '日本語', es: 'Español', pt: 'Português' };
+  var SHORT = { 'zh-Hant': '繁中', 'zh-Hans': '简中', en: 'EN', ja: '日本語', es: 'ES', pt: 'PT' };
+  function norm(t) {
+    t = String(t || '').toLowerCase();
+    if (t.indexOf('zh') === 0) return /hant|-tw|-hk|-mo/.test(t) ? 'zh-Hant' : 'zh-Hans';
+    return { en: 'en', ja: 'ja', es: 'es', pt: 'pt' }[t.split('-')[0]] || null;
+  }
+  function detect() {
+    var q = /[?&]lang=([\w-]+)/.exec(location.search);
+    if (q) { var n = LANGS.indexOf(q[1]) >= 0 ? q[1] : norm(q[1]); if (n) return n; }
+    try { var s = localStorage.getItem('bk-lang'); if (LANGS.indexOf(s) >= 0) return s; } catch (e) {}
+    var list = (navigator.languages && navigator.languages.length) ? navigator.languages : [navigator.language];
+    for (var i = 0; i < list.length; i++) { var l = norm(list[i]); if (l) return l; }
+    return 'en';
+  }
+  var lang = detect(), idx = LANGS.indexOf(lang);
+  function t(k) { return D[k] ? D[k][idx] : ''; }
+  document.documentElement.lang = lang;
+  if (lang !== 'zh-Hant') {
+    document.querySelectorAll('template[data-lang="' + lang + '"]').forEach(function (tp) {
+      var target = document.querySelector(tp.getAttribute('data-region'));
+      if (target) target.replaceWith(tp.content.cloneNode(true));
+    });
+  }
+  document.querySelectorAll('[data-i]').forEach(function (el) { var v = t(el.getAttribute('data-i')); if (v) el.textContent = v; });
+  document.title = t(PAGE === 'manual' ? 'title_manual' : 'title_privacy');
+  var cur = document.getElementById('langCur'); cur.textContent = NAMES[lang]; cur.setAttribute('data-short', SHORT[lang]);
+  var btn = document.getElementById('langBtn'), menu = document.getElementById('langMenu');
+  LANGS.forEach(function (l) {
+    var li = document.createElement('li'); li.setAttribute('role', 'none');
+    var b = document.createElement('button');
+    b.type = 'button'; b.setAttribute('role', 'menuitemradio'); b.setAttribute('lang', l); b.textContent = NAMES[l];
+    b.setAttribute('aria-checked', String(l === lang));
+    b.addEventListener('click', function () {
+      try { localStorage.setItem('bk-lang', l); } catch (e) {}
+      if (l === lang) { close(); return; }
+      var u = location.href.replace(/([?&])lang=[\w-]+&?/, '$1').replace(/[?&]$/, '');
+      location.href = u;
+    });
+    li.appendChild(b); menu.appendChild(li);
+  });
+  function close() { menu.hidden = true; btn.setAttribute('aria-expanded', 'false'); }
+  btn.addEventListener('click', function () {
+    if (menu.hidden) { menu.hidden = false; btn.setAttribute('aria-expanded', 'true'); (menu.querySelector('[aria-checked="true"]') || menu.querySelector('button')).focus(); } else close();
+  });
+  document.addEventListener('click', function (e) { if (!menu.hidden && !document.getElementById('lang').contains(e.target)) close(); });
+  menu.addEventListener('keydown', function (e) {
+    var items = Array.prototype.slice.call(menu.querySelectorAll('button')), i = items.indexOf(document.activeElement);
+    if (e.key === 'Escape') { close(); btn.focus(); }
+    else if (e.key === 'ArrowDown') { e.preventDefault(); items[(i + 1) % items.length].focus(); }
+    else if (e.key === 'ArrowUp') { e.preventDefault(); items[(i - 1 + items.length) % items.length].focus(); }
+  });
+})();
+</script>
 <script>
 (function () {
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -504,7 +1589,7 @@ td:first-child { width: 30%; }
   Array.from(text).forEach(function (c) {
     var s = document.createElement('span');
     s.className = 'ch';
-    s.textContent = c;
+    s.textContent = c === ' ' ? '\u00a0' : c;
     title.appendChild(s);
     chars.push(s);
   });
