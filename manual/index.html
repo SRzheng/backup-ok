@@ -10,7 +10,7 @@
 <style>
 @font-face {
   font-family: "BKSerif";
-  src: url(../fonts/serif-light-v2.woff2) format("woff2");
+  src: url(../fonts/serif-light-v3.woff2) format("woff2");
   font-weight: 300; font-style: normal; font-display: swap;
 }
 :root {
@@ -228,6 +228,59 @@ td + td { color: var(--ink-2); }
   *, *::before, *::after { transition: none !important; }
   .js .hero .ch, .js .reveal { opacity: 1 !important; filter: none !important; transform: none !important; }
 }
+
+/* ---------- 區塊版(與後台同一套) ---------- */
+:root { --block: #FBFBF9; --line: rgba(29,29,27,.15); --line-strong: rgba(29,29,27,.32); --mute: #8E8E86; --top-h: 50px; --rail-w: 196px; --col: 820px; }
+html { scroll-padding-top: calc(var(--top-h) + 16px + env(safe-area-inset-top, 0px)); }
+body { font-size: 15px; line-height: 1.75; }
+.top { border-bottom: 1px solid var(--line-strong); padding: 0 20px; background: rgba(244,244,241,.82); }
+.block { background: var(--block); border: 1px solid var(--line-strong); border-radius: 12px; overflow: hidden; }
+.block-h { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 9px 18px;
+  border-bottom: 1px solid var(--line-strong); background: rgba(29,29,27,.025); }
+.block-h h2 { margin: 0; font-size: 16px; line-height: 1.5; letter-spacing: .06em; }
+.block-h .meta { font-size: 12px; color: var(--mute); letter-spacing: .1em; }
+.block-b { padding: 14px 18px 18px; }
+.hero { max-width: calc(var(--rail-w) + var(--col) + 54px); padding: 16px 20px 0; }
+.hero-inner { margin-left: calc(var(--rail-w) + 14px); max-width: none; padding: 26px 28px 20px; }
+.hero .for { font-size: 13px; margin: 0 0 10px; }
+.hero h1 { font-size: clamp(44px, 6.5vw, 76px); margin: 0 0 14px; }
+.hero .sub { font-size: clamp(15px, 1.7vw, 18px); margin: 0 0 18px; }
+.hero .meta { padding-top: 10px; font-size: 12.5px; border-top-color: var(--line-strong); }
+.layout { max-width: calc(var(--rail-w) + var(--col) + 54px); padding: 14px 20px 60px; column-gap: 14px; }
+main { display: flex; flex-direction: column; gap: 14px; min-width: 0; }
+section { padding: 0; }
+section + section { border-top: 1px solid var(--line-strong); padding-top: 0; }
+.rail { top: calc(var(--top-h) + 14px + env(safe-area-inset-top, 0px)); background: var(--block); border: 1px solid var(--line-strong); border-radius: 12px; padding: 12px 14px; }
+.rail::before, .rail-fill { left: 18px; top: 25px; bottom: 25px; }
+.rail-fill { bottom: auto; }
+.rail a { padding: 4px 0; font-size: 13px; }
+.lede { font-size: 14.5px; line-height: 1.75; margin: 0 0 14px; }
+h3 { font-size: 14px; letter-spacing: .06em; color: var(--ink-2); margin: 20px 0 6px; padding-bottom: 5px; border-bottom: 1px solid var(--line-strong); }
+p { margin: 0 0 10px; }
+.steps { margin: 0 0 6px; }
+.steps li { grid-template-columns: 34px minmax(0, 1fr); padding: 9px 0; }
+.steps .n { font-size: 18px; line-height: 1.4; }
+.steps .h { font-size: 15px; margin-bottom: 1px; }
+.steps .d { font-size: 13.5px; line-height: 1.7; }
+.dialog { padding: 10px 16px; margin: 4px 0 10px; border-radius: 8px; background: rgba(29,29,27,.02); }
+.dialog .cap { font-size: 11.5px; margin-bottom: 2px; }
+.dialog .msg { font-size: 15px; line-height: 1.65; }
+.tbl { margin: 2px 0 10px; }
+table { font-size: 13.5px; }
+th { font-size: 12px; padding: 7px 12px 6px 0; }
+td { padding: 7px 12px 7px 0; }
+td:first-child { width: 30%; }
+.note { border-left-width: 2px; padding: 1px 0 1px 12px; margin: 12px 0 10px; font-size: 13.5px; line-height: 1.7; }
+.note .h { font-size: 14px; margin-bottom: 1px; }
+.qa button { padding: 10px 0; font-size: 14.5px; }
+.qa .body p { font-size: 13.5px; padding: 0 28px 12px 0; line-height: 1.7; }
+.faq { border-top-color: var(--line-strong); }
+.foot { margin-top: 18px; padding-top: 10px; font-size: 12px; }
+@media (max-width: 900px) {
+  .hero-inner { margin-left: 0; }
+  .hero { padding: 12px 12px 0; }
+  .layout { padding: 12px 12px 48px; }
+}
 </style>
 </head>
 <body>
@@ -240,7 +293,7 @@ td + td { color: var(--ink-2); }
 </header>
 
 <div class="hero">
-  <div class="hero-inner">
+  <div class="hero-inner block">
     <p class="for reveal">使用說明</p>
     <h1 id="title">備份都ok</h1>
     <p class="sub reveal">給影像工作者的記憶卡備份工具。<br>每一個檔案，都讀回來再確認一次。</p>
@@ -268,9 +321,9 @@ td + td { color: var(--ink-2); }
 
   <main>
     <!-- 01 -->
-    <section id="install">
-      <p class="no">第一章</p>
-      <h2>安裝</h2>
+    <section id="install" class="block">
+      <div class="block-h"><h2>安裝</h2><span class="meta">第一章</span></div>
+      <div class="block-b">
       <p class="lede">備份都ok 是一個獨立的 Mac 應用程式，拖進「應用程式」資料夾就完成安裝，不會在系統裡留下其他東西。</p>
       <ol class="steps">
         <li><span class="n">1</span><div><div class="h">打開下載的映像檔</div><div class="d">從官方網站下載的檔名是 BackupOK 開頭、副檔名 .dmg，雙擊打開。</div></div></li>
@@ -283,12 +336,13 @@ td + td { color: var(--ink-2); }
         <tr><td>網路</td><td>啟用金鑰與檢查更新時需要；之後離線最多可使用 14 天</td></tr>
         <tr><td>讀卡</td><td>內建讀卡槽、外接讀卡機，或相機以 USB 直接連接皆可</td></tr>
       </table></div>
+      </div>
     </section>
 
     <!-- 02 -->
-    <section id="open">
-      <p class="no">第二章</p>
-      <h2>第一次打開</h2>
+    <section id="open" class="block">
+      <div class="block-h"><h2>第一次打開</h2><span class="meta">第二章</span></div>
+      <div class="block-b">
       <p class="lede">備份都ok 已經通過 Apple 的公證。第一次打開時，macOS 只會跟你確認一次這是從網路下載的 App。</p>
       <h3>你會看到的訊息</h3>
       <div class="dialog">
@@ -297,12 +351,13 @@ td + td { color: var(--ink-2); }
       </div>
       <p class="muted">按「打開」即可，之後不會再出現。</p>
       <div class="note"><div class="h">如果看到「無法驗證」或「惡意軟體」的訊息</div>代表你手上是 2.2 以前的測試版。請把舊版丟到垃圾桶，從官方網站重新下載安裝；設定、預設集與歷史紀錄都會保留，打開後重新輸入一次金鑰即可。</div>
+      </div>
     </section>
 
     <!-- 03 -->
-    <section id="perm">
-      <p class="no">第三章</p>
-      <h2>權限</h2>
+    <section id="perm" class="block">
+      <div class="block-h"><h2>權限</h2><span class="meta">第三章</span></div>
+      <div class="block-b">
       <p class="lede">第一次使用時，macOS 會陸續詢問幾項取用權限。請全部選「允許」，每一項都有它的用途。</p>
       <div class="tbl"><table>
         <tr><th>系統詢問</th><th>用途</th></tr>
@@ -319,12 +374,13 @@ td + td { color: var(--ink-2); }
         <li><span class="n">3</span><div><div class="h">重新打開 App</div><div class="d">權限變更要在下次啟動才完全生效。</div></div></li>
       </ol>
       <div class="note"><div class="h">不需要「完全取用磁碟」</div>備份都ok 不會要求完全取用磁碟權限。如果有任何教學叫你打開它，請不要照做。</div>
+      </div>
     </section>
 
     <!-- 04 -->
-    <section id="key">
-      <p class="no">第四章</p>
-      <h2>啟用金鑰</h2>
+    <section id="key" class="block">
+      <div class="block-h"><h2>啟用金鑰</h2><span class="meta">第四章</span></div>
+      <div class="block-b">
       <p class="lede">備份都ok 沒有未啟用也能用的簡化版，所有功能都在輸入金鑰之後開放。</p>
       <ol class="steps">
         <li><span class="n">1</span><div><div class="h">打開 App，出現「輸入金鑰」視窗</div><div class="d">金鑰格式為 BKOK-XXXX-XXXX-XXXX-XXXX，可直接貼上，大小寫不拘。</div></div></li>
@@ -336,12 +392,13 @@ td + td { color: var(--ink-2); }
       <p class="muted">在舊電腦的 <span class="path">設定<i>›</i>一般<i>›</i>授權</span> 按「登出此裝置」，再到新電腦輸入同一把金鑰。直接在新電腦輸入也可以，舊的會自動登出。</p>
       <h3>沒有網路的時候</h3>
       <p class="muted">每次連上網路都會自動確認授權。確認過後的 14 天內離線也能正常使用，適合外拍或出國。離線超過 11 天時，設定頁的授權欄會提醒你找時間連網。</p>
+      </div>
     </section>
 
     <!-- 05 -->
-    <section id="first">
-      <p class="no">第五章</p>
-      <h2>第一次備份</h2>
+    <section id="first" class="block">
+      <div class="block-h"><h2>第一次備份</h2><span class="meta">第五章</span></div>
+      <div class="block-b">
       <p class="lede">插卡、確認、按下開始。其餘的事，備份都ok 會自己做完並一一驗證。</p>
       <ol class="steps">
         <li><span class="n">1</span><div><div class="h">插入記憶卡</div><div class="d">主視窗會自動選到剛插入的卡，辨識機型，並依卡內實際檔案亮起 JPG、RAW、影片、音檔。外接硬碟與 SSD 會自動隱藏。</div></div></li>
@@ -354,12 +411,13 @@ td + td { color: var(--ink-2); }
       <p class="muted">選單列的百分比會停在 100% 一秒，接著從選單列圖示下方浮出一個小視窗，寫著檔案數、容量與耗時，同時播放提示音並送出系統通知。任務視窗會自動收起。</p>
       <p class="muted">只要有任何一個檔案驗證不通過，備份都ok 就不會退出記憶卡，並告訴你有幾個檔案需要重新處理。</p>
       <div class="note"><div class="h">再備份一次不會重複</div>同一張卡再次備份時，已經備份過的檔案會自動跳過，只複製新增的部分。備份到一半中斷，重新開始也只補沒完成的檔案。</div>
+      </div>
     </section>
 
     <!-- 06 -->
-    <section id="features">
-      <p class="no">第六章</p>
-      <h2>功能與設定</h2>
+    <section id="features" class="block">
+      <div class="block-h"><h2>功能與設定</h2><span class="meta">第六章</span></div>
+      <div class="block-b">
       <p class="lede">主視窗右上角的齒輪打開設定，分成「一般」、「備份分級」、「歷史紀錄」三頁。</p>
       <h3>一般</h3>
       <div class="tbl"><table>
@@ -394,12 +452,13 @@ td + td { color: var(--ink-2); }
       <p class="muted">2.2 起，有新版本時會自動提示，也可以從選單列的 <span class="path">備份都ok<i>›</i>檢查更新…</span> 手動確認。備份進行中按下安裝，會等全部備份結束才重新啟動，不會中斷正在寫入的檔案。</p>
       <h3>歷史紀錄</h3>
       <p class="muted">設定頁保留最近 50 次備份。每次備份另外在 <span class="path">文件<i>›</i>備份都ok</span> 存一份詳細紀錄，包含完整的檔案清單。點歷史列右側的 ⓘ 即可打開，交件佐證或回頭查證都用得到。</p>
+      </div>
     </section>
 
     <!-- 07 -->
-    <section id="faq">
-      <p class="no">第七章</p>
-      <h2>常見問題</h2>
+    <section id="faq" class="block">
+      <div class="block-h"><h2>常見問題</h2><span class="meta">第七章</span></div>
+      <div class="block-b">
       <p class="lede">大部分的狀況，都是權限或讀卡環境造成的。</p>
       <div class="faq">
         <div class="qa"><button type="button" aria-expanded="false">更新後要求重新輸入金鑰<span class="pm"></span></button><div class="body"><div><p>從 2.1 以前的版本更新到 2.2 時，需要重新輸入一次金鑰；同一台 Mac 不會被當成新裝置。設定、預設集與歷史紀錄會自動保留。</p></div></div></div>
@@ -412,12 +471,13 @@ td + td { color: var(--ink-2); }
         <div class="qa"><button type="button" aria-expanded="false">速度比預期慢<span class="pm"></span></button><div class="body"><div><p>速度只計算實際複製的檔案，已存在而跳過的不算在內。若明顯偏慢，常見原因依序是讀卡機規格、USB 集線器、目的地硬碟的速度。</p></div></div></div>
         <div class="qa"><button type="button" aria-expanded="false">MXF 影片沒有被加上 Finder 標籤<span class="pm"></span></button><div class="body"><div><p>MXF 格式無法讀取影片長度，標籤會略過，不影響備份與驗證。</p></div></div></div>
       </div>
+      </div>
     </section>
 
     <!-- 08 -->
-    <section id="feedback">
-      <p class="no">第八章</p>
-      <h2>回報問題</h2>
+    <section id="feedback" class="block">
+      <div class="block-h"><h2>回報問題</h2><span class="meta">第八章</span></div>
+      <div class="block-b">
       <p class="lede">請寄到 <a href="mailto:imokahhhh@gmail.com">imokahhhh@gmail.com</a>，附上以下資料，我們能更快找到原因。</p>
       <ol class="steps">
         <li><span class="n">1</span><div><div class="h">畫面截圖</div><div class="d">包含主視窗標題列，上面有版本號。</div></div></li>
@@ -427,6 +487,7 @@ td + td { color: var(--ink-2); }
       </ol>
       <div class="note"><div class="h">請不要公開分享你的金鑰</div>金鑰與你的使用者身分綁定。截圖時若畫面上有完整金鑰，請先遮住。</div>
       <p class="foot">啟用時，App 會將這台 Mac 的硬體識別碼與電腦名稱傳送至授權伺服器，僅用於單機授權驗證。詳見<a href="../privacy/">隱私權政策</a>。</p>
+      </div>
     </section>
   </main>
 </div>
