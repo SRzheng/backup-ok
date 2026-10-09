@@ -3,6 +3,21 @@
     <channel>
         <title>備份都ok</title>
         <item>
+            <title>2.3</title>
+            <pubDate>Fri, 09 Oct 2026 15:16:32 +0800</pubDate>
+            <link>https://srzheng.github.io/backup-ok</link>
+            <sparkle:version>23</sparkle:version>
+            <sparkle:shortVersionString>2.3</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>13.5</sparkle:minimumSystemVersion>
+            <description><![CDATA[<h2>備份都ok 2.3</h2>
+<ul>
+  <li>更新提醒更即時:App 開著時每 6 小時檢查一次新版本。</li>
+  <li>App 在背景時有新版本,會改用系統通知提醒,點通知就能查看更新內容並安裝;不會再突然跳出視窗打斷工作。</li>
+</ul>
+]]></description>
+            <enclosure url="https://srzheng.github.io/backup-ok/downloads/BackupOK-2.3.dmg" length="2074600" type="application/octet-stream" sparkle:edSignature="PRYhCvE140rQNI8V8c/teSS6Xp8p3isuEDRshMkzSj3YWHNiTbVO5ywQJajzPBuyrBdR8QWvlU3wSYDC7cjFAA=="/>
+        </item>
+        <item>
             <title>2.2</title>
             <pubDate>Fri, 09 Oct 2026 14:00:23 +0800</pubDate>
             <link>https://srzheng.github.io/backup-ok</link>
