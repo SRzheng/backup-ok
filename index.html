@@ -4,6 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>備份都ok</title>
+<link rel="icon" type="image/png" sizes="64x64" href="icons/favicon-64.png">
+<link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
 <meta name="description" content="給影像工作者的記憶卡備份工具。每一個檔案，都讀回來再確認一次。">
 <style>
 @font-face {
@@ -49,6 +52,11 @@ a { color: inherit; }
   font-size: 14px; letter-spacing: .05em;
 }
 .top nav { display: flex; gap: 22px; }
+.brand { display: inline-flex; align-items: center; gap: 9px; text-decoration: none; color: inherit; }
+.brand img { width: 20px; height: 20px; display: block; }
+.hero .app-icon { display: block; width: 76px; height: 76px; margin: 0 0 30px; opacity: 0; filter: blur(6px); transform: translateY(8px); animation: iconIn .9s var(--ease-out) .1s forwards; }
+@keyframes iconIn { to { opacity: 1; filter: none; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .hero .app-icon { animation: none; opacity: 1; filter: none; transform: none; } }
 .top nav a { text-decoration: none; color: var(--ink-2); transition: color .3s; }
 .top nav a:hover { color: var(--ink); }
 
@@ -147,12 +155,13 @@ footer a:hover { color: var(--ink); }
 <script>document.documentElement.classList.add('js');</script>
 
 <header class="top">
-  <span>備份都ok</span>
+  <span class="brand"><img src="icons/favicon-64.png" alt="" width="20" height="20">備份都ok</span>
   <nav><a href="manual/">使用說明</a><a href="privacy/">隱私權政策</a></nav>
 </header>
 
 <main class="wrap">
   <div class="hero">
+    <img class="app-icon" src="icons/app-icon-256.png" alt="備份都ok App 圖示" width="76" height="76">
     <p class="for reveal">給影像工作者的記憶卡備份工具</p>
     <h1 id="title">備份都ok</h1>
     <p class="sub reveal">每一個檔案，都讀回來再確認一次。<br>沒有全部確認無誤，就不退卡。</p>
@@ -183,9 +192,9 @@ footer a:hover { color: var(--ink); }
           <button class="ghost" id="copyBtn" type="button"><span class="swap-t" id="copyT">複製</span></button>
         </div>
         <ol class="next">
-          <li><span>按上方「下載」，把「備份都ok」放進「應用程式」資料夾。</span></li>
+          <li><span>按上方「下載」，打開映像檔，把「備份都ok」拖進「應用程式」資料夾。</span></li>
           <li><span>打開 App，在「輸入金鑰」視窗貼上這把金鑰，按「啟用」。</span></li>
-          <li><span>第一次打開如果被系統擋下，照<a href="manual/#open">使用說明第二章</a>放行；第一次使用建議讀完前四章。</span></li>
+          <li><span>第一次打開時系統會確認一次，按「打開」即可。第一次使用建議先讀<a href="manual/">使用說明</a>的前四章。</span></li>
         </ol>
       </div></div>
     </div>
@@ -232,8 +241,8 @@ footer a:hover { color: var(--ink); }
     chars.concat(reveals).forEach(function (el) { el.classList.add('in'); });
   } else {
     requestAnimationFrame(function () {
-      chars.forEach(function (s, i) { setTimeout(function () { s.classList.add('in'); }, 200 + i * 55); });
-      var after = 200 + chars.length * 55 + 450;
+      chars.forEach(function (s, i) { setTimeout(function () { s.classList.add('in'); }, 450 + i * 55); });
+      var after = 450 + chars.length * 55 + 450;
       reveals.forEach(function (el, i) { setTimeout(function () { el.classList.add('in'); }, after + i * 150); });
     });
   }
