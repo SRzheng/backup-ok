@@ -3,6 +3,25 @@
     <channel>
         <title>備份都ok</title>
         <item>
+            <title>2.5</title>
+            <pubDate>Fri, 09 Oct 2026 21:42:07 +0800</pubDate>
+            <link>https://felix5zheng.github.io/backup-ok</link>
+            <sparkle:version>25</sparkle:version>
+            <sparkle:shortVersionString>2.5</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>13.5</sparkle:minimumSystemVersion>
+            <description><![CDATA[<h2>備份都ok 2.5</h2>
+<ul>
+  <li>全新介面:和紙白配灰紅樺的新配色,淺色與深色模式都重新設計。</li>
+  <li>主視窗新增記憶卡卡片:卡名、容量與已用空間一眼看到,也能直接重新整理或退卡。</li>
+  <li>同時插多張記憶卡時,可以用「1 / 3」清單切換;正在備份的卡不會被重複選取。</li>
+  <li>備份任務改成卡片:狀態(備份中、校驗中、完成、已中斷)、目的地、進度、速度與剩餘時間都清楚列出。</li>
+  <li>有新版本時會自己跳出更新視窗:每次打開 App 都會檢查,開著時每小時再檢查一次;在背景時先發通知,回到 App 就會跳出。</li>
+  <li>修正英文、簡體中文、日文、西班牙文、葡萄牙文介面的多處翻譯。</li>
+</ul>
+]]></description>
+            <enclosure url="https://felix5zheng.github.io/backup-ok/downloads/BackupOK-2.5.dmg" length="2195009" type="application/octet-stream" sparkle:edSignature="/g8nCvBkchiDL0zZrUA9Txu1EDCHhOwbocRaAn6g8+Dpd1E/2Tb0YTnVp10ieV9Cdn32rddrUxchq5VL8KSFDQ=="/>
+        </item>
+        <item>
             <title>2.3</title>
             <pubDate>Fri, 09 Oct 2026 15:16:32 +0800</pubDate>
             <link>https://felix5zheng.github.io/backup-ok</link>
